@@ -1,3 +1,6 @@
 spring:
   application:
     name: hhplus
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
