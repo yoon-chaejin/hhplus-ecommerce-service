@@ -12,16 +12,24 @@ class Point(
     val updatedAt: LocalDateTime = LocalDateTime.now(),
     ) {
 
+    companion object {
+        val MIN_BALANCE = 0
+        val MAX_BALANCE = 1_000_000
+
+        val MIN_AMOUNT = 1
+        val MAX_AMOUNT = 1_000_000
+    }
+
     init {
-        require(balance >= 0) { throw IllegalArgumentException("잔액은 0 이상이어야 합니다.") }
-        require(balance <= 1_000_000) { throw IllegalArgumentException("잔액은 백만 이하여야 합니다.") }
+        require(balance >= MIN_BALANCE) { throw IllegalArgumentException("잔액은 0 이상이어야 합니다.") }
+        require(balance <= MAX_BALANCE) { throw IllegalArgumentException("잔액은 백만 이하여야 합니다.") }
     }
 
     fun plus(amount: Int) {
-        require(amount > 0) { throw IllegalArgumentException("충전 금액은 0 이상이어야 합니다.")}
-        require(amount <= 1_000_000) { throw IllegalArgumentException("충전 금액은 백만 이하여야 합니다.")}
+        require(amount >= MIN_AMOUNT) { throw IllegalArgumentException("충전 금액은 0 이상이어야 합니다.")}
+        require(amount <= MAX_AMOUNT) { throw IllegalArgumentException("충전 금액은 백만 이하여야 합니다.")}
         balance += amount
 
-        require(balance <= 1_000_000) { throw CustomException(CustomExceptionType.INVALID_BALANCE)}
+        require(balance <= MAX_BALANCE) { throw CustomException(CustomExceptionType.INVALID_BALANCE)}
     }
 }
