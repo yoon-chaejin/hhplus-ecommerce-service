@@ -1,12 +1,15 @@
 package kr.hhplus.be.server.domain.product.model
 
+import org.junit.jupiter.api.Assertions.assertEquals
 import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
+import kotlin.test.Test
+import kotlin.test.assertFailsWith
 
 class ProductTest () {
 
     @Test
-    fun `given 상품의 잔여 수량이 0이면 when 상품 상태 조회 시 then 상품 상태는 판매 중단으로 반환한다`() {
+    fun `given 상품의 잔여 수량이 0 이하인 when 상품 상태 조회 시 then 상품 상태는 UNAVAILABLE을 반환한다`() {
         //given
         val product = Product(
             id = 1L,
@@ -24,7 +27,25 @@ class ProductTest () {
     }
 
     @Test
-    fun `given when 상품 가격이 100 단위가 아닌 상품 생성 시 then IllegalArgumentException이 발생한다`() {
+    fun `given 상품의 잔여 수량이 0 초과인 when 상품 상태 조회 시 then 상품 상태는 AVAILABLE을 반환한다`() {
+        //given
+        val product = Product(
+            id = 1L,
+            remainingQuantity = 50,
+            unitPrice = 100,
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now()
+        )
+
+        //when
+        val result = product.getStatus()
+
+        //then
+        assertEquals(ProductStatus.AVAILABLE, result)
+    }
+
+    @Test
+    fun `given 상품 가격이 100 단위가 아닌 when 상품 생성 시 then IllegalArgumentException이 발생한다`() {
         //given
         val unitPrice = 150
 
@@ -41,4 +62,23 @@ class ProductTest () {
             )
         }
     }
+
+    @Test
+    fun `given 상품 가격이 100 단위인 when  상품 생성 시 then 성공한다`() {
+        //given
+        val unitPrice = 100
+
+        //when
+        val result = Product(
+            id = 1L,
+            remainingQuantity = 0,
+            unitPrice = unitPrice,
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now()
+        )
+
+        //then
+        assertEquals(unitPrice, result.unitPrice)
+    }
+
 }
