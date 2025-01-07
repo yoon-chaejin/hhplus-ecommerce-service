@@ -3,6 +3,7 @@ package kr.hhplus.be.server.controller.point
 import kr.hhplus.be.server.common.exception.CustomException
 import kr.hhplus.be.server.common.exception.CustomExceptionType
 import kr.hhplus.be.server.controller.point.model.ChargeRequest
+import kr.hhplus.be.server.controller.point.model.ChargeResponse
 import kr.hhplus.be.server.controller.point.model.GetPointsResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -20,10 +21,12 @@ class PointController {
         require(request.amount > 0) { throw CustomException(CustomExceptionType.INVALID_CHARGE_AMOUNT) }
         require(request.amount <= 1_000_000) { throw CustomException(CustomExceptionType.INVALID_BALANCE) }
 
-        return ResponseEntity.ok(ChargeResponse(
+        return ResponseEntity.ok(
+            ChargeResponse(
             balance = request.amount,
             updatedAt = LocalDateTime.now()
-        ))
+        )
+        )
     }
 
     @GetMapping("/users/{userId}/points")
