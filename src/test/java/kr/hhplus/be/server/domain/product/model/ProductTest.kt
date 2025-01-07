@@ -1,12 +1,14 @@
 package kr.hhplus.be.server.domain.product.model
 
+import kr.hhplus.be.server.common.exception.CustomException
+import kr.hhplus.be.server.common.exception.CustomExceptionType
 import org.junit.jupiter.api.Assertions.assertEquals
 import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
-class ProductTest () {
+class ProductTest {
 
     @Test
     fun `given 상품의 잔여 수량이 0 이하인 when 상품 상태 조회 시 then 상품 상태는 UNAVAILABLE을 반환한다`() {
@@ -81,4 +83,44 @@ class ProductTest () {
         assertEquals(unitPrice, result.unitPrice)
     }
 
+    @Test
+    fun `given 잔여 수량를 초과해서 when 상품 수량 감소 시 then CustomException 이 발생한다`() {
+        //given
+        val remainingQuantity = 5
+        val amount = remainingQuantity + 1
+        val product = Product(
+            id = 1L,
+            remainingQuantity = remainingQuantity,
+            unitPrice = 100,
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now()
+        )
+
+        //when
+        val result = assertFailsWith<CustomException>() {
+            product.decreaseQuantityBy(amount)
+        }
+        //then
+        assertEquals(CustomExceptionType.NOT_ENOUGH_QUANTITY, result.type)
+    }
+
+    @Test
+    fun `given 잔여 수량 이하로 when 상품 수량 감소 시 then CustomException 이 발생한다`() {
+        //given
+        val remainingQuantity = 5
+        val amount = remainingQuantity
+        val product = Product(
+            id = 1L,
+            remainingQuantity = remainingQuantity,
+            unitPrice = 100,
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now()
+        )
+
+        //when
+        val result = product.decreaseQuantityBy(amount)
+
+        //then
+        assertEquals(remainingQuantity - amount, result.remainingQuantity)
+    }
 }
