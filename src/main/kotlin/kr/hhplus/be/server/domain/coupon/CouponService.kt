@@ -1,0 +1,32 @@
+package kr.hhplus.be.server.domain.coupon
+
+import kr.hhplus.be.server.common.exception.CustomException
+import kr.hhplus.be.server.common.exception.CustomExceptionType
+import kr.hhplus.be.server.domain.coupon.model.IssuedCoupon
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
+import java.time.LocalDateTime
+
+@Service
+class CouponService @Autowired constructor (
+    private val couponTemplateRepository: CouponTemplateRepository,
+    private val issuedCouponRepository: IssuedCouponRepository
+) {
+
+    fun issue(templateId: Long, userId: Long): IssuedCoupon {
+        val couponTemplate = couponTemplateRepository.findCouponTemplateById(templateId) ?: throw CustomException(
+            CustomExceptionType.COUPON_TEMPLATE_NOT_FOUND)
+
+        val at = LocalDateTime.now()
+        val issuedCoupon = couponTemplate.issueCoupon(userId, at)
+
+        return issuedCouponRepository.save(issuedCoupon)
+    }
+
+    fun use(couponId: Long, userId: Long) {
+        val coupon = issuedCouponRepository.findIssuedCouponById(couponId) ?: throw CustomException(CustomExceptionType.INVALID_COUPON)
+
+        val at = LocalDateTime.now()
+        coupon.use(userId, at)
+    }
+}
