@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface CouponTemplateRepository {
-    fun findCouponTemplateById(id: Long): CouponTemplate?
+    fun findCouponTemplateByIdWithLock(id: Long): CouponTemplate?
 }

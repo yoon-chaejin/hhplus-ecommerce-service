@@ -24,7 +24,7 @@ class CouponServiceTest {
         //given
         val templateId = 0L
         val userId = 1L
-        given(couponTemplateRepository.findCouponTemplateById(templateId)).willReturn(null)
+        given(couponTemplateRepository.findCouponTemplateByIdWithLock(templateId)).willReturn(null)
 
         //when
         val result = assertFailsWith<CustomException> {
@@ -53,7 +53,7 @@ class CouponServiceTest {
         )
         val issuedCoupon = couponTemplate.issueCoupon(userId, now)
 
-        given(couponTemplateRepository.findCouponTemplateById(templateId)).willReturn(
+        given(couponTemplateRepository.findCouponTemplateByIdWithLock(templateId)).willReturn(
             CouponTemplate(
                 id = templateId,
                 issueCount = 0,

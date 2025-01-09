@@ -5,6 +5,7 @@ import kr.hhplus.be.server.common.exception.CustomExceptionType
 import kr.hhplus.be.server.domain.coupon.model.IssuedCoupon
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
 @Service
@@ -13,8 +14,9 @@ class CouponService @Autowired constructor (
     private val issuedCouponRepository: IssuedCouponRepository
 ) {
 
+    @Transactional
     fun issue(templateId: Long, userId: Long): IssuedCoupon {
-        val couponTemplate = couponTemplateRepository.findCouponTemplateById(templateId) ?: throw CustomException(
+        val couponTemplate = couponTemplateRepository.findCouponTemplateByIdWithLock(templateId) ?: throw CustomException(
             CustomExceptionType.COUPON_TEMPLATE_NOT_FOUND)
 
         val at = LocalDateTime.now()
