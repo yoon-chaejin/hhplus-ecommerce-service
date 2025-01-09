@@ -6,3 +6,6 @@ VALUES (1, 10, 0, 10, STR_TO_DATE('20250201', '%Y%m%d'), STR_TO_DATE('20250201',
 
 INSERT INTO issued_coupon (id, template_id, owned_by, expires_at, used_at, created_at, updated_at)
 VALUES (1, 1, 1, STR_TO_DATE('20250201', '%Y%m%d'), null, STR_TO_DATE('20250201', '%Y%m%d'),STR_TO_DATE('20250201', '%Y%m%d'));
+
+INSERT INTO point (id, user_id, balance, created_at, updated_at)
+VALUES (1, 1, 1000, STR_TO_DATE('20250201', '%Y%m%d'),STR_TO_DATE('20250201', '%Y%m%d'))

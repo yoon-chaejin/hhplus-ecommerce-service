@@ -16,7 +16,7 @@ class PointServiceTest {
     fun `given 포인트 정보가 없는 사용자, when 포인트 조회 시 then 잔액이 0인 포인트를 반환한다`() {
         //given
         val userId = 1L
-        given(pointRepository.findPointByUserId(userId)).willReturn(null)
+        given(pointRepository.findPointByUserIdWithLock(userId)).willReturn(null)
 
         //when
         val result = sut.getPointByUserId(userId)
@@ -31,7 +31,7 @@ class PointServiceTest {
         //given
         val userId = 1L
         val balance = 500
-        given(pointRepository.findPointByUserId(userId)).willReturn(Point(userId, userId, balance))
+        given(pointRepository.findPointByUserIdWithLock(userId)).willReturn(Point(userId, userId, balance))
 
         //when
         val result = sut.getPointByUserId(userId)
@@ -47,7 +47,7 @@ class PointServiceTest {
         val userId = 1L
         val balance = 300
         val amount = 500
-        given(pointRepository.findPointByUserId(userId)).willReturn(Point(userId, userId, balance))
+        given(pointRepository.findPointByUserIdWithLock(userId)).willReturn(Point(userId, userId, balance))
         whenever(pointRepository.save(any())).thenReturn(Point(userId, userId, balance+amount))
 
         //when
@@ -63,7 +63,7 @@ class PointServiceTest {
         val userId = 1L
         val balance = 500
         val amount = 300
-        given(pointRepository.findPointByUserId(userId)).willReturn(Point(userId, userId, balance))
+        given(pointRepository.findPointByUserIdWithLock(userId)).willReturn(Point(userId, userId, balance))
         whenever(pointRepository.save(any())).thenReturn(Point(userId, userId, balance - amount))
 
         //when

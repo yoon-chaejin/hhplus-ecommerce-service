@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface PointRepository {
-    fun findPointByUserId(userId: Long): Point?
+    fun findPointByUserIdWithLock(userId: Long): Point?
 
     fun save(point: Point): Point
 }

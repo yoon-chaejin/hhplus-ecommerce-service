@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository
 class PointRepositoryImpl @Autowired constructor(
     private val pointJpaRepository: PointJpaRepository,
 ) : PointRepository {
-    override fun findPointByUserId(userId: Long): Point? {
-        return pointJpaRepository.findByUserId(userId)
+    override fun findPointByUserIdWithLock(userId: Long): Point? {
+        return pointJpaRepository.findForUpdateByUserId(userId)
     }
 
     override fun save(point: Point): Point {
