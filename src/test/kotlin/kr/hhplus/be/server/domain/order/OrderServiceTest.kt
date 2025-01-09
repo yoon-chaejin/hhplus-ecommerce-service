@@ -1,7 +1,5 @@
 package kr.hhplus.be.server.domain.order
 
-import kr.hhplus.be.server.domain.coupon.model.CouponTemplate
-import kr.hhplus.be.server.domain.coupon.model.IssuedCoupon
 import kr.hhplus.be.server.domain.order.model.Order
 import kr.hhplus.be.server.domain.order.model.OrderProduct
 import org.junit.jupiter.api.assertInstanceOf
@@ -10,7 +8,6 @@ import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
 import java.time.LocalDateTime
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class OrderServiceTest {
     private val orderRepository: OrderRepository = mock<OrderRepository>()
