@@ -26,10 +26,11 @@ class IssuedCoupon(
         }
         return CouponStatus.USABLE
     }
-    fun use(userId: Long, at: LocalDateTime) {
+    fun use(userId: Long, at: LocalDateTime): IssuedCoupon {
         require(userId == ownedBy) { throw CustomException(CustomExceptionType.INVALID_COUPON) }
         require(getStatus(at) == CouponStatus.USABLE) { throw CustomException(CustomExceptionType.INVALID_COUPON) }
 
         usedAt = at
+        return this
     }
 }

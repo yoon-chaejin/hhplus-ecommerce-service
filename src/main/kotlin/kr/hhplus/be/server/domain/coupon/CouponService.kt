@@ -26,10 +26,10 @@ class CouponService @Autowired constructor (
     }
 
     @Transactional
-    fun use(couponId: Long, userId: Long) {
+    fun use(couponId: Long, userId: Long) : IssuedCoupon {
         val coupon = issuedCouponRepository.findIssuedCouponByIdWithLock(couponId) ?: throw CustomException(CustomExceptionType.INVALID_COUPON)
 
         val at = LocalDateTime.now()
-        coupon.use(userId, at)
+        return coupon.use(userId, at)
     }
 }
