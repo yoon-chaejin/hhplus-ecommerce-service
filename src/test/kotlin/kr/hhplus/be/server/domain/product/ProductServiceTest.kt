@@ -4,8 +4,12 @@ import kr.hhplus.be.server.common.exception.CustomException
 import kr.hhplus.be.server.common.exception.CustomExceptionType
 import kr.hhplus.be.server.domain.product.model.Product
 import org.junit.jupiter.api.Assertions.assertInstanceOf
+import org.mockito.kotlin.any
 import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.PageRequest
 import java.time.LocalDateTime
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -18,21 +22,24 @@ class ProductServiceTest {
     @Test
     fun `given when 상품 목록 조회 시 then 목록을 반환한다`() {
         //given
-        given(productRepository.findProducts()).willReturn(listOf(
-            Product(
+        val pageRequest = PageRequest.of(0, 10)
+        val page = PageImpl<Product>(
+            listOf(Product(
                 id = 1L,
                 remainingQuantity = 500,
                 unitPrice = 100,
                 createdAt = LocalDateTime.now(),
                 updatedAt = LocalDateTime.now(),
-            )
-        ))
+            )),
+        )
+
+        given(productRepository.findProducts(page = pageRequest)).willReturn(page)
 
         //when
-        val result = sut.getProducts()
+        val result = sut.getProducts(pageRequest)
 
         //then
-        assertInstanceOf(List::class.java, result)
+        assertInstanceOf(Page::class.java, result)
     }
 
     @Test
