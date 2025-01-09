@@ -105,7 +105,7 @@ class ProductTest {
     }
 
     @Test
-    fun `given 잔여 수량 이하로 when 상품 수량 감소 시 then CustomException 이 발생한다`() {
+    fun `given 잔여 수량 이하로 when 상품 수량 감소 시 then 상품의 수량이 감소된다`() {
         //given
         val remainingQuantity = 5
         val amount = remainingQuantity
