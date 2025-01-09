@@ -81,7 +81,7 @@ class CouponServiceTest {
         //given
         val couponId = 0L
         val userId = 1L
-        given(issuedCouponRepository.findIssuedCouponById(couponId)).willReturn(null)
+        given(issuedCouponRepository.findIssuedCouponByIdWithLock(couponId)).willReturn(null)
 
         //when
         val result = assertFailsWith<CustomException> {
