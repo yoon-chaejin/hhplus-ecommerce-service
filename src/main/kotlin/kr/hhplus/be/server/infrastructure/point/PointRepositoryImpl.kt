@@ -10,7 +10,7 @@ class PointRepositoryImpl @Autowired constructor(
     private val pointJpaRepository: PointJpaRepository,
 ) : PointRepository {
     override fun findPointByUserId(userId: Long): Point? {
-        return pointJpaRepository.findByUserId(userId).orElse(null)
+        return pointJpaRepository.findByUserId(userId)
     }
 
     override fun save(point: Point): Point {
