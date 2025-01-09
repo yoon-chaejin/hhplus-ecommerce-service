@@ -32,10 +32,16 @@ class Point(
     }
 
     fun plus(amount: Int) {
-        require(amount >= MIN_AMOUNT) { throw IllegalArgumentException("충전 금액은 0 이상이어야 합니다.")}
+        require(amount >= MIN_AMOUNT) { throw IllegalArgumentException("충전 금액은 1 이상이어야 합니다.")}
         require(amount <= MAX_AMOUNT) { throw IllegalArgumentException("충전 금액은 백만 이하여야 합니다.")}
         balance += amount
 
         require(balance <= MAX_BALANCE) { throw CustomException(CustomExceptionType.INVALID_BALANCE)}
+    }
+
+    fun minus(amount: Int) {
+        require(amount > 0) { throw IllegalArgumentException("차감 금액은 1 이상이어야 합니다.)") }
+        require(balance >= amount) { throw CustomException(CustomExceptionType.NOT_ENOUGH_POINT) }
+        balance -= amount
     }
 }
