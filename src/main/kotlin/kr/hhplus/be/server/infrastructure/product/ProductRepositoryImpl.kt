@@ -20,7 +20,7 @@ class ProductRepositoryImpl @Autowired constructor(
         return productJpaRepository.findAll()
     }
 
-    override fun findProductById(id: Long): Product? {
-        return productJpaRepository.findByIdOrNull(id)
+    override fun findProductByIdWithLock(id: Long): Product? {
+        return productJpaRepository.findForUpdateById(id)
     }
 }

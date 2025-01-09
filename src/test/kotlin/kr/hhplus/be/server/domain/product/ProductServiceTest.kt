@@ -91,7 +91,7 @@ class ProductServiceTest {
     fun `given 존재하지 않는 상품에 대해 when 상품 잔여 수량 감소 시 then CustomException 이 발생한다`() {
         //given
         val id = 0L
-        given(productRepository.findProductById(id)).willReturn(null)
+        given(productRepository.findProductByIdWithLock(id)).willReturn(null)
 
         //when
         val result = assertFailsWith(CustomException::class) {
