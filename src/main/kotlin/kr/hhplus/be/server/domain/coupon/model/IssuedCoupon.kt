@@ -1,11 +1,15 @@
 package kr.hhplus.be.server.domain.coupon.model
 
+import jakarta.persistence.*
 import kr.hhplus.be.server.common.exception.CustomException
 import kr.hhplus.be.server.common.exception.CustomExceptionType
 import java.time.LocalDateTime
 
+@Entity
 class IssuedCoupon(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
+    @ManyToOne(fetch = FetchType.LAZY)
     val template: CouponTemplate,
     val ownedBy: Long,
     val expiresAt: LocalDateTime,

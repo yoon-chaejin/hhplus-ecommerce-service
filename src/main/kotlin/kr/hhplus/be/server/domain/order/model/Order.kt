@@ -1,11 +1,16 @@
 package kr.hhplus.be.server.domain.order.model
 
+import jakarta.persistence.*
 import kr.hhplus.be.server.domain.coupon.model.IssuedCoupon
 import java.time.LocalDateTime
 
+@Entity
 class Order(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
+    @OneToOne(fetch = FetchType.LAZY)
     val coupon: IssuedCoupon? = null,
+    @OneToMany(fetch = FetchType.LAZY)
     val orderProducts: List<OrderProduct>,
     val orderedBy: Long,
     val createdAt: LocalDateTime = LocalDateTime.now(),

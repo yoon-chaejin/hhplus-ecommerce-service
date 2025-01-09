@@ -1,11 +1,17 @@
 package kr.hhplus.be.server.domain.product.model
 
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
 import kr.hhplus.be.server.common.exception.CustomException
 import kr.hhplus.be.server.common.exception.CustomExceptionType
 import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
 
+@Entity
 class Product(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
     var remainingQuantity: Int,
     val unitPrice: Int,
