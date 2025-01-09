@@ -5,6 +5,7 @@ import kr.hhplus.be.server.domain.coupon.model.IssuedCoupon
 import java.time.LocalDateTime
 
 @Entity
+@Table(name = "`order`")
 class Order(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
