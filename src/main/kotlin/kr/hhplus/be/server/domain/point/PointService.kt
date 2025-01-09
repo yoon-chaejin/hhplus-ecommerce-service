@@ -17,4 +17,10 @@ class PointService(
         point.plus(amount)
         return pointRepository.save(point)
     }
+
+    fun use(userId: Long, amount: Int): Point {
+        val point = getPointByUserId(userId)
+        point.minus(amount)
+        return pointRepository.save(point)
+    }
 }

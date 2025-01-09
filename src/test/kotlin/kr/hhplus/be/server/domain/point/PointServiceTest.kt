@@ -56,4 +56,20 @@ class PointServiceTest {
         //then
         assertEquals(balance + amount, result.balance)
     }
+
+    @Test
+    fun `given 사용자와 충전 금액 when 포인트 사용 시 then 사용 후 포인트를 반환한다`() {
+        //given
+        val userId = 1L
+        val balance = 500
+        val amount = 300
+        given(pointRepository.findPointByUserId(userId)).willReturn(Point(userId, userId, balance))
+        whenever(pointRepository.save(any())).thenReturn(Point(userId, userId, balance - amount))
+
+        //when
+        val result = sut.use(userId, amount)
+
+        //then
+        assertEquals(balance - amount, result.balance)
+    }
 }
