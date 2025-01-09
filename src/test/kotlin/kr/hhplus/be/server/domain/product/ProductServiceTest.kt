@@ -4,7 +4,6 @@ import kr.hhplus.be.server.common.exception.CustomException
 import kr.hhplus.be.server.common.exception.CustomExceptionType
 import kr.hhplus.be.server.domain.product.model.Product
 import org.junit.jupiter.api.Assertions.assertInstanceOf
-import org.mockito.kotlin.any
 import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
 import org.springframework.data.domain.Page
