@@ -72,7 +72,7 @@ class CouponServiceTest {
 
         //then
         assertInstanceOf<IssuedCoupon>(result)
-        assertEquals(templateId, result.templateId)
+        assertEquals(templateId, result.template.id)
         assertEquals(userId, result.ownedBy)
     }
 

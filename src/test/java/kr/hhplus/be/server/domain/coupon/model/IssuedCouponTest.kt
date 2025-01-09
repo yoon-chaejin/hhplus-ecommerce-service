@@ -12,10 +12,17 @@ class IssuedCouponTest {
     fun `given 사용일시가 존재하는 경우 when 상태 조회 시 then 사용 완료로 반환하다`() {
         //given
         val now = LocalDateTime.of(2025, 1, 8, 1, 0, 0)
+        val template = CouponTemplate(
+            id = 1L,
+            discountRate = 10,
+            issueCount = 1,
+            maxIssueCount = 10,
+            issuableUntil = now.plusDays(1),
+        )
 
         val coupon = IssuedCoupon(
             id = 1L,
-            templateId = 1L,
+            template = template,
             ownedBy = 1L,
             usedAt = now,
             expiresAt = now.plusDays(1),
@@ -34,10 +41,17 @@ class IssuedCouponTest {
     fun `given 사용일시가 없고, 사용기한이 지난 경우 when 상태 조회 시 기한 만료를 반환한다`() {
         //given
         val now = LocalDateTime.of(2025, 1, 8, 1, 0, 0)
+        val template = CouponTemplate(
+            id = 1L,
+            discountRate = 10,
+            issueCount = 1,
+            maxIssueCount = 10,
+            issuableUntil = now.plusDays(1),
+        )
 
         val coupon = IssuedCoupon(
             id = 1L,
-            templateId = 1L,
+            template = template,
             ownedBy = 1L,
             usedAt = null,
             expiresAt = now.minusDays(1),
@@ -56,10 +70,17 @@ class IssuedCouponTest {
     fun `given 사용일시가 없고, 사용기간이 지나지 않은 경우 when 상태 조회 시 then 사용 가능을 반환한다`() {
         //given
         val now = LocalDateTime.of(2025, 1, 8, 1, 0, 0)
+        val template = CouponTemplate(
+            id = 1L,
+            discountRate = 10,
+            issueCount = 1,
+            maxIssueCount = 10,
+            issuableUntil = now.plusDays(1),
+        )
 
         val coupon = IssuedCoupon(
             id = 1L,
-            templateId = 1L,
+            template = template,
             ownedBy = 1L,
             usedAt = null,
             expiresAt = now.plusDays(1),
@@ -80,10 +101,17 @@ class IssuedCouponTest {
         val ownerId = 1L
         val userId = 2L
         val now = LocalDateTime.of(2025, 1, 8, 1, 0, 0)
+        val template = CouponTemplate(
+            id = 1L,
+            discountRate = 10,
+            issueCount = 1,
+            maxIssueCount = 10,
+            issuableUntil = now.plusDays(1),
+        )
 
         val coupon = IssuedCoupon(
             id = 1L,
-            templateId = 1L,
+            template = template,
             ownedBy = ownerId,
             usedAt = null,
             expiresAt = now.plusDays(1),

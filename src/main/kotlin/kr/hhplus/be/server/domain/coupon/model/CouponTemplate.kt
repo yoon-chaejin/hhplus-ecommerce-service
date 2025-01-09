@@ -10,8 +10,8 @@ class CouponTemplate(
     var issueCount: Int,
     val maxIssueCount: Int,
     val issuableUntil: LocalDateTime,
-    val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime,
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val updatedAt: LocalDateTime = LocalDateTime.now(),
 ) {
     fun issueCoupon(userId: Long, at: LocalDateTime): IssuedCoupon {
         require(at <= issuableUntil) { throw CustomException(CustomExceptionType.COUPON_ISSUE_FAILED) }
@@ -20,7 +20,7 @@ class CouponTemplate(
         issueCount += 1
         return IssuedCoupon(
             id = 0,
-            templateId = id,
+            template = this,
             ownedBy = userId,
             expiresAt = at.plusDays(365),
             usedAt = null,

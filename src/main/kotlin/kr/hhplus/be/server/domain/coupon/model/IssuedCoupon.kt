@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 
 class IssuedCoupon(
     val id: Long,
-    val templateId: Long,
+    val template: CouponTemplate,
     val ownedBy: Long,
     val expiresAt: LocalDateTime,
     var usedAt: LocalDateTime?,
