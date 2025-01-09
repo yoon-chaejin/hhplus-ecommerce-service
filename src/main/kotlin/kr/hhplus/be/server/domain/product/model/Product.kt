@@ -13,6 +13,7 @@ import java.time.LocalDateTime
 class Product(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
+    val name: String,
     var remainingQuantity: Int,
     val unitPrice: Int,
     val createdAt: LocalDateTime = LocalDateTime.now(),

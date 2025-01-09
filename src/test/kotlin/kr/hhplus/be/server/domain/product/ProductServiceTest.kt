@@ -26,6 +26,7 @@ class ProductServiceTest {
         val page = PageImpl<Product>(
             listOf(Product(
                 id = 1L,
+                name = "상품명",
                 remainingQuantity = 500,
                 unitPrice = 100,
                 createdAt = LocalDateTime.now(),
@@ -48,26 +49,31 @@ class ProductServiceTest {
         given(productRepository.findPopularProducts()).willReturn(listOf(
             Product(
                 id = 1L,
+                name = "상품명",
                 remainingQuantity = 500,
                 unitPrice = 100,
             ),
             Product(
                 id = 2L,
+                name = "상품명",
                 remainingQuantity = 500,
                 unitPrice = 100,
             ),
             Product(
                 id = 3L,
+                name = "상품명",
                 remainingQuantity = 500,
                 unitPrice = 100,
             ),
             Product(
                 id = 4L,
+                name = "상품명",
                 remainingQuantity = 500,
                 unitPrice = 100,
             ),
             Product(
                 id = 5L,
+                name = "상품명",
                 remainingQuantity = 500,
                 unitPrice = 100,
             )

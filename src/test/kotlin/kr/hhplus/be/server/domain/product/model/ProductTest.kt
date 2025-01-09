@@ -15,6 +15,7 @@ class ProductTest {
         //given
         val product = Product(
             id = 1L,
+            name = "상품명",
             remainingQuantity = 0,
             unitPrice = 100,
             createdAt = LocalDateTime.now(),
@@ -33,6 +34,7 @@ class ProductTest {
         //given
         val product = Product(
             id = 1L,
+            name = "상품명",
             remainingQuantity = 50,
             unitPrice = 100,
             createdAt = LocalDateTime.now(),
@@ -57,6 +59,7 @@ class ProductTest {
         assertFailsWith<IllegalArgumentException>() {
             Product(
                 id = 1L,
+                name = "상품명",
                 remainingQuantity = 0,
                 unitPrice = unitPrice,
                 createdAt = LocalDateTime.now(),
@@ -73,6 +76,7 @@ class ProductTest {
         //when
         val result = Product(
             id = 1L,
+            name = "상품명",
             remainingQuantity = 0,
             unitPrice = unitPrice,
             createdAt = LocalDateTime.now(),
@@ -90,6 +94,7 @@ class ProductTest {
         val amount = remainingQuantity + 1
         val product = Product(
             id = 1L,
+            name = "상품명",
             remainingQuantity = remainingQuantity,
             unitPrice = 100,
             createdAt = LocalDateTime.now(),
@@ -111,6 +116,7 @@ class ProductTest {
         val amount = remainingQuantity
         val product = Product(
             id = 1L,
+            name = "상품명",
             remainingQuantity = remainingQuantity,
             unitPrice = 100,
             createdAt = LocalDateTime.now(),
