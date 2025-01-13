@@ -46,8 +46,11 @@ dependencies {
 
     // Spring
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
-//	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+
+    // API Documentation
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.0")
 
     // DB
 	runtimeOnly("com.mysql:mysql-connector-j")
@@ -57,6 +60,9 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-testcontainers")
 	testImplementation("org.testcontainers:junit-jupiter")
 	testImplementation("org.testcontainers:mysql")
+    testImplementation(kotlin("test"))
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
+
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

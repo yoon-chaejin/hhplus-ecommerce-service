@@ -1,5 +1,7 @@
 package kr.hhplus.be.server.controller.coupon
 
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import kr.hhplus.be.server.common.exception.CustomException
 import kr.hhplus.be.server.common.exception.CustomExceptionType
 import kr.hhplus.be.server.controller.coupon.model.CouponResponse
@@ -15,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDateTime
 
+@Tag(name = "쿠폰 관리")
 @RestController
 class CouponController {
 
+    @Operation(summary = "쿠폰 발급", description = "쿠폰 템플릿을 기반으로 선착순으로 쿠폰을 발급한다.")
     @PostMapping("/coupon-templates/{couponTemplateId}/issue")
     fun issue(@PathVariable couponTemplateId: Long, @RequestBody request: IssueRequest): ResponseEntity<IssueResponse> {
         require(couponTemplateId > 0L) { throw CustomException(CustomExceptionType.COUPON_TEMPLATE_NOT_FOUND) }
@@ -34,6 +38,7 @@ class CouponController {
         ))
     }
 
+    @Operation(summary = "사용자 쿠폰 목록 조회", description = "사용자에게 발급된 쿠폰 목록을 조회한다.")
     @GetMapping("/users/{userId}/coupons")
     fun getCoupons(@PathVariable userId: Long): ResponseEntity<GetCouponsResponse> {
         val coupons = ArrayList<CouponResponse>()

@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.controller.point
+package kr.hhplus.be.server.controller.point.model
 
 import java.time.LocalDateTime
 
