@@ -11,7 +11,8 @@ class Order(
     val id: Long = 0,
     @OneToOne(fetch = FetchType.LAZY)
     val coupon: IssuedCoupon? = null,
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST])
+    @JoinColumn(name = "order_id")
     val orderProducts: List<OrderProduct>,
     val orderedBy: Long,
     val createdAt: LocalDateTime = LocalDateTime.now(),
