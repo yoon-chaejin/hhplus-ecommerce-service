@@ -4,8 +4,6 @@ import kr.hhplus.be.server.domain.coupon.CouponService
 import org.junit.jupiter.api.assertAll
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.TestPropertySource
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicInteger
@@ -13,8 +11,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @SpringBootTest
-@ActiveProfiles("test")
-@TestPropertySource(locations = ["classpath:application-test.yml"])
 class CouponServiceIntegrationTests @Autowired constructor(
     val sut: CouponService
 ) {
