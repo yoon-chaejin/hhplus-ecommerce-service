@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface IssuedCouponRepository {
     fun findIssuedCouponByIdWithLock(id: Long): IssuedCoupon?
+    fun findIssuedCouponsByUserId(userId: Long): List<IssuedCoupon>
     fun save(issuedCoupon: IssuedCoupon): IssuedCoupon
 }

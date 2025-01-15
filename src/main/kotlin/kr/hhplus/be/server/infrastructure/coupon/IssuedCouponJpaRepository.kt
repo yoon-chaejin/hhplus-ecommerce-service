@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository
 interface IssuedCouponJpaRepository : JpaRepository<IssuedCoupon, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     fun findForUpdateById(id: Long): IssuedCoupon?
+    fun findIssuedCouponsByOwnedBy(userId: Long): List<IssuedCoupon>
 }

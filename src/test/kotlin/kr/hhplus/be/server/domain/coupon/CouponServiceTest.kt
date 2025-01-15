@@ -12,12 +12,59 @@ import java.time.LocalDateTime
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 
 class CouponServiceTest {
 
     private val couponTemplateRepository: CouponTemplateRepository = mock<CouponTemplateRepository>()
     private val issuedCouponRepository: IssuedCouponRepository = mock<IssuedCouponRepository>()
     private val sut: CouponService = CouponService(couponTemplateRepository, issuedCouponRepository)
+
+    @Test
+    fun `given 쿠폰 목록이 없는 사용자인 경우 when 쿠폰 목록 조회 시 then 빈 리스트를 반환한다`() {
+        //given
+        val userId = 1L
+        given(issuedCouponRepository.findIssuedCouponsByUserId(userId)).willReturn(emptyList())
+
+        //when
+        val result = sut.getIssuedCouponsByUserId(userId)
+
+        //then
+        assertTrue { result.isEmpty() }
+    }
+
+    @Test
+    fun `given 쿠폰 목록이 있는 사용자인 경우 when 쿠폰 목록 조회 시 then 쿠폰 목록을 반환한다`() {
+        //given
+        val userId = 1L
+        val now = LocalDateTime.of(2025, 1, 8, 1, 0, 0)
+        val template = CouponTemplate(
+            id = 1L,
+            discountRate = 10,
+            issueCount = 1,
+            maxIssueCount = 10,
+            issuableUntil = now.plusDays(1),
+        )
+
+        val coupon = IssuedCoupon(
+            id = 1L,
+            template = template,
+            ownedBy = userId,
+            usedAt = now,
+            expiresAt = now.plusDays(1),
+            createdAt = now.minusDays(1),
+            updatedAt = now.minusDays(1),
+        )
+        val coupons = listOf(coupon)
+
+        given(issuedCouponRepository.findIssuedCouponsByUserId(userId)).willReturn(coupons)
+
+        //when
+        val result = sut.getIssuedCouponsByUserId(userId)
+
+        //then
+        assertEquals(coupons, result)
+    }
 
     @Test
     fun `given 존재하지 않는 쿠폰 템플릿 id인 경우 when 쿠폰 발급 시 then CustomException을 반환한다`() {
