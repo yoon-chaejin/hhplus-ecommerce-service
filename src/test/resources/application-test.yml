@@ -7,7 +7,7 @@ spring:
       connection-timeout: 10000
       max-lifetime: 60000
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/hhplus?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/hhplustest?characterEncoding=UTF-8&serverTimezone=UTC
     username: application
     password: application
   jpa:
