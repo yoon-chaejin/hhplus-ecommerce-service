@@ -2,74 +2,31 @@ package kr.hhplus.be.server.controller.coupon
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
-import kr.hhplus.be.server.common.exception.CustomException
-import kr.hhplus.be.server.common.exception.CustomExceptionType
-import kr.hhplus.be.server.controller.coupon.model.CouponResponse
-import kr.hhplus.be.server.controller.coupon.model.GetCouponsResponse
-import kr.hhplus.be.server.controller.coupon.model.IssueResponse
-import kr.hhplus.be.server.controller.coupon.model.IssueRequest
-import kr.hhplus.be.server.domain.coupon.model.CouponStatus
+import kr.hhplus.be.server.controller.coupon.model.*
+import kr.hhplus.be.server.domain.coupon.CouponService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
-import java.time.LocalDateTime
+import org.springframework.web.bind.annotation.*
 
 @Tag(name = "쿠폰 관리")
 @RestController
-class CouponController {
+class CouponController @Autowired constructor(
+    val couponService: CouponService
+) {
 
     @Operation(summary = "쿠폰 발급", description = "쿠폰 템플릿을 기반으로 선착순으로 쿠폰을 발급한다.")
     @PostMapping("/coupon-templates/{couponTemplateId}/issue")
     fun issue(@PathVariable couponTemplateId: Long, @RequestBody request: IssueRequest): ResponseEntity<IssueResponse> {
-        require(couponTemplateId > 0L) { throw CustomException(CustomExceptionType.COUPON_TEMPLATE_NOT_FOUND) }
+        val response = couponService.issue(templateId = couponTemplateId, userId = request.userId).toIssueResponse()
 
-        if (request.userId == 2L) {
-            throw CustomException(CustomExceptionType.COUPON_ISSUE_FAILED)
-        }
-
-        return ResponseEntity.ok(IssueResponse(
-            id = 1L,
-            discountRate = 10,
-            expiresAt = LocalDateTime.now().plusDays(365),
-            createdAt = LocalDateTime.now(),
-        ))
+        return ResponseEntity.ok(response)
     }
 
     @Operation(summary = "사용자 쿠폰 목록 조회", description = "사용자에게 발급된 쿠폰 목록을 조회한다.")
     @GetMapping("/users/{userId}/coupons")
     fun getCoupons(@PathVariable userId: Long): ResponseEntity<GetCouponsResponse> {
-        val coupons = ArrayList<CouponResponse>()
+        val coupons = couponService.getIssuedCouponsByUserId(userId).map { it.toCouponResponse() }
 
-        coupons.add(CouponResponse(
-            id = 1L,
-            discountRate = 10,
-            status = CouponStatus.USABLE,
-            usedAt = null,
-            expiresAt = LocalDateTime.of(2026, 1, 1, 9, 0, 0),
-            createdAt = LocalDateTime.of(2025, 1, 1, 9, 0, 0),
-        ))
-
-        coupons.add(CouponResponse(
-            id = 2L,
-            discountRate = 10,
-            status = CouponStatus.USED,
-            usedAt = LocalDateTime.of(2025, 1, 1, 12, 0, 0),
-            expiresAt = LocalDateTime.of(2026, 1, 1, 9, 0, 0),
-            createdAt = LocalDateTime.of(2025, 1, 1, 9, 0, 0),
-        ))
-
-        coupons.add(CouponResponse(
-            id = 3L,
-            discountRate = 10,
-            status = CouponStatus.EXPIRED,
-            usedAt = null,
-            expiresAt = LocalDateTime.of(2024, 12, 31, 9, 0, 0),
-            createdAt = LocalDateTime.of(2023, 12, 31, 9, 0, 0),
-        ))
-
-        return ResponseEntity.ok(GetCouponsResponse(coupons))
+        return ResponseEntity.ok(GetCouponsResponse(coupons = coupons))
     }
 }
