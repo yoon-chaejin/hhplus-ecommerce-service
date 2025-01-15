@@ -1,10 +1,12 @@
 package kr.hhplus.be.server.domain.point.model
 
 import kr.hhplus.be.server.common.exception.CustomException
+import kr.hhplus.be.server.common.exception.CustomExceptionType
 import kr.hhplus.be.server.point.model.Point
 import kr.hhplus.be.server.point.model.Point.Companion.MAX_BALANCE
 import java.time.LocalDateTime
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 class PointTest () {
@@ -42,7 +44,7 @@ class PointTest () {
     }
 
     @Test
-    fun `given 충전 금액이 최솟값 미만이고 when 포인트 충전 시 then IllegalArgumentException이 발생한다`() {
+    fun `given 충전 금액이 최솟값 미만이고 when 포인트 충전 시 then CustomException이 발생한다`() {
         //given
         val amount = Point.MIN_AMOUNT-1
         val point = Point(
@@ -54,15 +56,16 @@ class PointTest () {
         )
 
         //when
-
-        //then
-        assertFailsWith<IllegalArgumentException> {
+        val result = assertFailsWith<CustomException> {
             point.plus(amount)
         }
+
+        //then
+        assertEquals(CustomExceptionType.INVALID_CHARGE_AMOUNT, result.type)
     }
 
     @Test
-    fun `given 충전 금액이 백만 초과이고 when 포인트 충전 시 then IllegalArgumentException이 발생한다`() {
+    fun `given 충전 금액이 백만 초과이고 when 포인트 충전 시 then CustomException이 발생한다`() {
         //given
         val amount = Point.MAX_AMOUNT+1
         val point = Point(
@@ -74,15 +77,16 @@ class PointTest () {
         )
 
         //when
-
-        //then
-        assertFailsWith<IllegalArgumentException> {
+        val result = assertFailsWith<CustomException> {
             point.plus(amount)
         }
+
+        //then
+        assertEquals(CustomExceptionType.INVALID_CHARGE_AMOUNT, result.type)
     }
 
     @Test
-    fun `given 잔액이 1이고 when 충전 후 잔액이 백만 초과이면 then CustomeException이 발생한다`() {
+    fun `given 잔액이 1이고 when 충전 후 잔액이 백만 초과이면 then CustomException이 발생한다`() {
         //given
         val point = Point(
             id = 0L,
