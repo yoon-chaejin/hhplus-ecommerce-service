@@ -1,9 +1,7 @@
 package kr.hhplus.be.server.domain.coupon
 
 import kr.hhplus.be.server.domain.coupon.model.IssuedCoupon
-import org.springframework.stereotype.Repository
 
-@Repository
 interface IssuedCouponRepository {
     fun findIssuedCouponByIdWithLock(id: Long): IssuedCoupon?
     fun findIssuedCouponsByUserId(userId: Long): List<IssuedCoupon>
