@@ -23,4 +23,43 @@ VALUES (1, 1, 1, STR_TO_DATE('20250201', '%Y%m%d'), null, STR_TO_DATE('20250201'
 INSERT INTO point (id, user_id, balance, created_at, updated_at)
 VALUES (1, 1, 1000, STR_TO_DATE('20250201', '%Y%m%d'),STR_TO_DATE('20250201', '%Y%m%d'));
 INSERT INTO point (id, user_id, balance, created_at, updated_at)
-VALUES (2, 2, 1000000, STR_TO_DATE('20250201', '%Y%m%d'),STR_TO_DATE('20250201', '%Y%m%d'))
+VALUES (2, 2, 1000000, STR_TO_DATE('20250201', '%Y%m%d'),STR_TO_DATE('20250201', '%Y%m%d'));
+
+INSERT INTO `order` (id, coupon_id,ordered_by,payment_price,total_price,created_at,updated_at)
+VALUES (1, null,1,1500,1500,STR_TO_DATE('20250103', '%Y%m%d'),STR_TO_DATE('20250103', '%Y%m%d'));
+INSERT INTO order_product (id, product_id,quantity,unit_price,created_at,updated_at)
+VALUES(1,1,1,100,STR_TO_DATE('20250103', '%Y%m%d'),STR_TO_DATE('20250103', '%Y%m%d'));
+INSERT INTO order_product (id, product_id,quantity,unit_price,created_at,updated_at)
+VALUES(2,2,2,100,STR_TO_DATE('20250103', '%Y%m%d'),STR_TO_DATE('20250103', '%Y%m%d'));
+INSERT INTO order_product (id, product_id,quantity,unit_price,created_at,updated_at)
+VALUES(3,3,3,100,STR_TO_DATE('20250103', '%Y%m%d'),STR_TO_DATE('20250103', '%Y%m%d'));
+INSERT INTO order_product (id, product_id,quantity,unit_price,created_at,updated_at)
+VALUES(4,4,4,100,STR_TO_DATE('20250103', '%Y%m%d'),STR_TO_DATE('20250103', '%Y%m%d'));
+INSERT INTO order_product (id, product_id,quantity,unit_price,created_at,updated_at)
+VALUES(5,5,5,100,STR_TO_DATE('20250103', '%Y%m%d'),STR_TO_DATE('20250103', '%Y%m%d'));
+
+INSERT INTO `order` (id, coupon_id,ordered_by,payment_price,total_price,created_at,updated_at)
+VALUES (2, null,1,1500,1500,STR_TO_DATE('20250107', '%Y%m%d'),STR_TO_DATE('20250107', '%Y%m%d'));
+INSERT INTO order_product (id, product_id,quantity,unit_price,created_at,updated_at)
+VALUES(6,1,1,100,STR_TO_DATE('20250107', '%Y%m%d'),STR_TO_DATE('20250107', '%Y%m%d'));
+INSERT INTO order_product (id, product_id,quantity,unit_price,created_at,updated_at)
+VALUES(7,2,3,100,STR_TO_DATE('20250107', '%Y%m%d'),STR_TO_DATE('20250107', '%Y%m%d'));
+INSERT INTO order_product (id, product_id,quantity,unit_price,created_at,updated_at)
+VALUES(8,3,2,100,STR_TO_DATE('20250107', '%Y%m%d'),STR_TO_DATE('20250107', '%Y%m%d'));
+INSERT INTO order_product (id, product_id,quantity,unit_price,created_at,updated_at)
+VALUES(9,4,4,100,STR_TO_DATE('20250107', '%Y%m%d'),STR_TO_DATE('20250107', '%Y%m%d'));
+INSERT INTO order_product (id, product_id,quantity,unit_price,created_at,updated_at)
+VALUES(10,5,5,100,STR_TO_DATE('20250107', '%Y%m%d'),STR_TO_DATE('20250107', '%Y%m%d'));
+
+INSERT INTO `order` (id, coupon_id,ordered_by,payment_price,total_price,created_at,updated_at)
+VALUES (3, null,1,500,500,STR_TO_DATE('20250110', '%Y%m%d'),STR_TO_DATE('20250110', '%Y%m%d'));
+INSERT INTO order_product (id, product_id,quantity,unit_price,created_at,updated_at)
+VALUES(11,1,1,100,STR_TO_DATE('20250110', '%Y%m%d'),STR_TO_DATE('20250110', '%Y%m%d'));
+INSERT INTO order_product (id, product_id,quantity,unit_price,created_at,updated_at)
+VALUES(12,2,1,100,STR_TO_DATE('20250110', '%Y%m%d'),STR_TO_DATE('20250110', '%Y%m%d'));
+INSERT INTO order_product (id, product_id,quantity,unit_price,created_at,updated_at)
+VALUES(13,3,1,100,STR_TO_DATE('20250110', '%Y%m%d'),STR_TO_DATE('20250110', '%Y%m%d'));
+INSERT INTO order_product (id, product_id,quantity,unit_price,created_at,updated_at)
+VALUES(14,4,1,100,STR_TO_DATE('20250110', '%Y%m%d'),STR_TO_DATE('20250110', '%Y%m%d'));
+INSERT INTO order_product (id, product_id,quantity,unit_price,created_at,updated_at)
+VALUES(15,5,1,100,STR_TO_DATE('20250110', '%Y%m%d'),STR_TO_DATE('20250110', '%Y%m%d'));
