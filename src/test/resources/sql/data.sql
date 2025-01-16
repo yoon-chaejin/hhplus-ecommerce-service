@@ -1,5 +1,13 @@
 INSERT INTO product (id, name, remaining_quantity, unit_price, created_at, updated_at)
 VALUES (1, "허재님의 생일케이크", 10, 500, STR_TO_DATE('2025010112', '%Y%m%d%H'), STR_TO_DATE('2025010112', '%Y%m%d%H'));
+INSERT INTO product (id, name, remaining_quantity, unit_price, created_at, updated_at)
+VALUES (2, "한결님의 응원봉", 10, 500, STR_TO_DATE('2025010112', '%Y%m%d%H'), STR_TO_DATE('2025010112', '%Y%m%d%H'));
+INSERT INTO product (id, name, remaining_quantity, unit_price, created_at, updated_at)
+VALUES (3, "희니의 불주먹", 0, 500, STR_TO_DATE('2025010112', '%Y%m%d%H'), STR_TO_DATE('2025010112', '%Y%m%d%H'));
+INSERT INTO product (id, name, remaining_quantity, unit_price, created_at, updated_at)
+VALUES (4, "덕이의 캣타워", 0, 500, STR_TO_DATE('2025010112', '%Y%m%d%H'), STR_TO_DATE('2025010112', '%Y%m%d%H'));
+INSERT INTO product (id, name, remaining_quantity, unit_price, created_at, updated_at)
+VALUES (5, "민이의 이중생활", 0, 500, STR_TO_DATE('2025010112', '%Y%m%d%H'), STR_TO_DATE('2025010112', '%Y%m%d%H'));
 
 INSERT INTO coupon_template (id, discount_rate, issue_count, max_issue_count, issuable_until, created_at, updated_at)
 VALUES (1, 10, 1, 10, STR_TO_DATE('20250201', '%Y%m%d'), STR_TO_DATE('20250201', '%Y%m%d'),STR_TO_DATE('20250201', '%Y%m%d'));

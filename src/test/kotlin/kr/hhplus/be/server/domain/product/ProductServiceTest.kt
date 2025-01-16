@@ -3,10 +3,11 @@ package kr.hhplus.be.server.domain.product
 import kr.hhplus.be.server.common.exception.CustomException
 import kr.hhplus.be.server.common.exception.CustomExceptionType
 import kr.hhplus.be.server.domain.product.model.Product
+import kr.hhplus.be.server.domain.product.model.ProductStatus
 import org.junit.jupiter.api.Assertions.assertInstanceOf
+import org.mockito.kotlin.any
 import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import java.time.LocalDateTime
@@ -39,7 +40,77 @@ class ProductServiceTest {
         val result = sut.getProducts(pageRequest)
 
         //then
-        assertInstanceOf(Page::class.java, result)
+        assertInstanceOf(List::class.java, result)
+    }
+
+    @Test
+    fun `given 조회 조건으로 Available이 주어지고 when 상품 목록 조회 시 then Available한 상품 목록을 반환한다`() {
+        //given
+        val status = ProductStatus.AVAILABLE
+        val availableProducts = PageImpl<Product>(
+            listOf(Product(
+                id = 1L,
+                name = "상품명",
+                remainingQuantity = 500,
+                unitPrice = 100,
+                createdAt = LocalDateTime.now(),
+                updatedAt = LocalDateTime.now(),
+            )),
+        )
+        val unavailableProducts = PageImpl<Product>(
+            listOf(Product(
+                id = 1L,
+                name = "상품명",
+                remainingQuantity = 0,
+                unitPrice = 100,
+                createdAt = LocalDateTime.now(),
+                updatedAt = LocalDateTime.now(),
+            )),
+        )
+
+        given(productRepository.findProductsByRemainingQuantityGreaterThan(any(), any())).willReturn(availableProducts)
+        given(productRepository.findProductsByRemainingQuantityLessThanEqual(any(), any())).willReturn(unavailableProducts)
+
+        //when
+        val result = sut.getProducts(PageRequest.of(0, 10), status)
+
+        //then
+        assertEquals(availableProducts.content, result)
+    }
+
+    @Test
+    fun `given 조회 조건으로 Unavabilable 주어지고 when 상품 목록 조회 시 then Unavabilable한 상품 목록을 반환한다`() {
+        //given
+        val status = ProductStatus.UNAVAILABLE
+        val availableProducts = PageImpl<Product>(
+            listOf(Product(
+                id = 1L,
+                name = "상품명",
+                remainingQuantity = 500,
+                unitPrice = 100,
+                createdAt = LocalDateTime.now(),
+                updatedAt = LocalDateTime.now(),
+            )),
+        )
+        val unavailableProducts = PageImpl<Product>(
+            listOf(Product(
+                id = 1L,
+                name = "상품명",
+                remainingQuantity = 0,
+                unitPrice = 100,
+                createdAt = LocalDateTime.now(),
+                updatedAt = LocalDateTime.now(),
+            )),
+        )
+
+        given(productRepository.findProductsByRemainingQuantityGreaterThan(any(), any())).willReturn(availableProducts)
+        given(productRepository.findProductsByRemainingQuantityLessThanEqual(any(), any())).willReturn(unavailableProducts)
+
+        //when
+        val result = sut.getProducts(PageRequest.of(0, 10), status)
+
+        //then
+        assertEquals(unavailableProducts.content, result)
     }
 
     @Test
