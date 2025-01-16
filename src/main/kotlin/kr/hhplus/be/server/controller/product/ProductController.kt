@@ -3,10 +3,7 @@ package kr.hhplus.be.server.controller.product
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import kr.hhplus.be.server.application.ProductApplication
-import kr.hhplus.be.server.controller.product.model.GetPopularProductsResponse
-import kr.hhplus.be.server.controller.product.model.GetProductsResponse
-import kr.hhplus.be.server.controller.product.model.PopularProductResponse
-import kr.hhplus.be.server.controller.product.model.toProductResponse
+import kr.hhplus.be.server.controller.product.model.*
 import kr.hhplus.be.server.domain.product.model.ProductStatus
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
@@ -36,21 +33,8 @@ class ProductController @Autowired constructor (
     @Operation(summary = "인기 상품 조회", description = "인기 상품 5건을 조회한다.")
     @GetMapping("/products/popular")
     fun getPopularProducts(): ResponseEntity<GetPopularProductsResponse> {
-        val products = ArrayList<PopularProductResponse>()
+        val response = productApplication.getPopularProducts().map { it.toPopularProductResponse() }
 
-        for (i in 0 until 5) {
-            products.add(
-                PopularProductResponse(
-                    id = (0 .. 100).random().toLong(),
-                    name = "상품명",
-                    unitPrice = i * 100,
-                    remainingQuantity = 50,
-                    status = ProductStatus.AVAILABLE,
-                    cumulativeSaleQuantity = 250,
-                )
-            )
-        }
-
-        return ResponseEntity.ok(GetPopularProductsResponse(products))
+        return ResponseEntity.ok(GetPopularProductsResponse(response))
     }
 }
