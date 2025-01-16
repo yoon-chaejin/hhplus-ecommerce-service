@@ -18,7 +18,8 @@ class PointServiceIntegrationTests @Autowired constructor(
     @Test
     fun `포인트 충전 및 차감 요청이 각 5건씩 들어왔을 때, 최종 금액은 각 충전 및 차감 금액을 계산한 결과이다`() {
         //given
-        val userId = 1L
+        val userId = 10L
+
         val chargeRequests: List<Int> = listOf(50, 300, 200, 50, 100)
         val useRequests: List<Int> = listOf(500, 50, 10, 20, 10)
         val numOfIterations = chargeRequests.size + useRequests.size

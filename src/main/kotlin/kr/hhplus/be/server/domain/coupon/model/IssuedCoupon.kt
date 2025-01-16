@@ -14,8 +14,8 @@ class IssuedCoupon(
     val ownedBy: Long,
     val expiresAt: LocalDateTime,
     var usedAt: LocalDateTime?,
-    val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime,
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val updatedAt: LocalDateTime = LocalDateTime.now(),
 ) {
     fun getStatus(at: LocalDateTime = LocalDateTime.now()): CouponStatus {
         if (usedAt != null) {
