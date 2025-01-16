@@ -1,7 +1,6 @@
-package kr.hhplus.be.server.domain.product.model
+package kr.hhplus.be.server.domain.product
 
 import kr.hhplus.be.server.TestcontainersConfiguration
-import kr.hhplus.be.server.domain.product.ProductRepository
 import kr.hhplus.be.server.infrastructure.product.ProductRepositoryImpl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
