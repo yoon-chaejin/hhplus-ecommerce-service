@@ -141,7 +141,7 @@ class OrderControllerIntegrationTest(
 
     @Test
     fun `주문 결제 400 2201`() {
-        val userId = 2
+        val userId = 5
         val uri = "/users/$userId/orders"
         val products = listOf(
             OrderProductRequest(id = 1L, quantity = 5)
@@ -149,7 +149,7 @@ class OrderControllerIntegrationTest(
 
         val request = OrderRequest(
             products = products,
-            couponId = 1L
+            couponId = 2L
         )
         val body = objectMapper.writeValueAsString(request)
 

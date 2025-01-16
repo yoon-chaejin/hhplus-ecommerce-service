@@ -128,4 +128,37 @@ class IssuedCouponTest {
         assertEquals(CustomExceptionType.INVALID_COUPON, result.type)
     }
 
+    @Test
+    fun `given 쿠폰이 사용가능하지 않은 경우 when 쿠폰 사용 시 then CustomException을 반환한다`() {
+        //given
+        val ownerId = 1L
+        val userId = 1L
+        val now = LocalDateTime.of(2025, 1, 8, 1, 0, 0)
+        val template = CouponTemplate(
+            id = 1L,
+            discountRate = 10,
+            issueCount = 1,
+            maxIssueCount = 10,
+            issuableUntil = now.plusDays(1),
+        )
+
+        val coupon = IssuedCoupon(
+            id = 1L,
+            template = template,
+            ownedBy = ownerId,
+            usedAt = now.minusDays(1),
+            expiresAt = now.plusDays(1),
+            createdAt = now.minusDays(1),
+            updatedAt = now.minusDays(1),
+        )
+        assert(coupon.getStatus(now) != CouponStatus.USABLE)
+
+        //when
+        val result = assertFailsWith<CustomException> {
+            coupon.use(userId, now)
+        }
+
+        //then
+        assertEquals(CustomExceptionType.INVALID_COUPON, result.type)
+    }
 }
