@@ -8,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.context.annotation.Import
-import org.springframework.test.context.ActiveProfiles
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ActiveProfiles("test")
 @Import(TestcontainersConfiguration::class, OrderRepositoryImpl::class)
 class OrderRepositoryTest @Autowired constructor(
     val sut : OrderRepository,
@@ -26,7 +24,7 @@ class OrderRepositoryTest @Autowired constructor(
             id = 0L,
             orderProducts = listOf(
                 OrderProduct(
-                    id = 0L,
+                    productId = 1L,
                     quantity = 1,
                     unitPrice = 100,
                 )

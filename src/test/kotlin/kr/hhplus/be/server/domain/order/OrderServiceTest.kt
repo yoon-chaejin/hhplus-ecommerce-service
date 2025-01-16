@@ -23,6 +23,7 @@ class OrderServiceTest {
                 id = 1L,
                 unitPrice = 500,
                 quantity = 5,
+                productId = 1L,
                 createdAt = LocalDateTime.now(),
                 updatedAt = LocalDateTime.now(),
             )

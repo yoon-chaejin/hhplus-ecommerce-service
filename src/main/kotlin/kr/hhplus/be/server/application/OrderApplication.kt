@@ -27,7 +27,7 @@ class OrderApplication @Autowired constructor(
         for (item in request.products) {
             val product = productService.decreaseProductQuantity(item.id, item.quantity)
             orderProducts.add(OrderProduct(
-                id = product.id,
+                productId = product.id,
                 unitPrice = product.unitPrice,
                 quantity = item.quantity,
             ))

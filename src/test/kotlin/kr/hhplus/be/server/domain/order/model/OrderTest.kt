@@ -32,7 +32,8 @@ class OrderTest {
         //given
         val orderProducts = listOf(
             OrderProduct(
-                id = 1,
+                id = 1L,
+                productId = 1L,
                 quantity = 0,
                 unitPrice = 100,
             )
@@ -58,6 +59,7 @@ class OrderTest {
         val orderProducts = listOf(
             OrderProduct(
                 id = 1,
+                productId = 1L,
                 quantity = 1,
                 unitPrice = 100,
             )
@@ -122,6 +124,7 @@ class OrderTest {
                 id = 1L,
                 unitPrice = 500,
                 quantity = 5,
+                productId = 1L,
                 createdAt = LocalDateTime.now(),
                 updatedAt = LocalDateTime.now(),
             )
@@ -150,6 +153,7 @@ class OrderTest {
                 id = 1L,
                 unitPrice = 500,
                 quantity = 5,
+                productId = 1L,
                 createdAt = LocalDateTime.now(),
                 updatedAt = LocalDateTime.now(),
             )
