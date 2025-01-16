@@ -10,6 +10,7 @@ import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import java.time.LocalDateTime
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -18,6 +19,19 @@ import kotlin.test.assertFailsWith
 class ProductServiceTest {
     private val productRepository = mock<ProductRepository>()
     private val sut: ProductService = ProductService(productRepository)
+
+    @Test
+    fun `given 존재하지 않는 상품id when 상품 조회 시 then IllegalArgumentException을 반환한다`() {
+        //given
+        given(productRepository.findProductById(any())).willReturn(null)
+
+        //when
+
+        //then
+        assertFailsWith<IllegalArgumentException> {
+            sut.getProductById(0L)
+        }
+    }
 
     @Test
     fun `given when 상품 목록 조회 시 then 목록을 반환한다`() {

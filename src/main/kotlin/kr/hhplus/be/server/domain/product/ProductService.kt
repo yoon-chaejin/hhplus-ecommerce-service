@@ -14,6 +14,10 @@ class ProductService @Autowired constructor (
     private val productRepository: ProductRepository
 ) {
 
+    fun getProductById(id: Long): Product {
+        return productRepository.findProductById(id) ?: throw IllegalArgumentException("존재하지 않는 상품입니다.")
+    }
+
     fun getProducts(page: Pageable) : List<Product> {
         return productRepository.findProducts(page).content
     }
