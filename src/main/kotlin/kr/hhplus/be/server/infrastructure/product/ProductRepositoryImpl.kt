@@ -24,10 +24,6 @@ class ProductRepositoryImpl @Autowired constructor(
         return productJpaRepository.findProductsByRemainingQuantityLessThanEqual(num, page)
     }
 
-    override fun findPopularProducts(): List<Product> {
-        return productJpaRepository.findAll()
-    }
-
     override fun findProductById(id: Long): Product? {
         return productJpaRepository.findByIdOrNull(id)
     }

@@ -29,10 +29,6 @@ class ProductService @Autowired constructor (
         }.content
     }
 
-    fun getPopularProducts() : List<Product> {
-        return productRepository.findPopularProducts()
-    }
-
     @Transactional
     fun decreaseProductQuantity(productId: Long, orderQuantity: Int): Product {
         val product = productRepository.findProductByIdWithLock(productId) ?: throw CustomException(CustomExceptionType.ORDER_PRODUCT_NOT_FOUND)

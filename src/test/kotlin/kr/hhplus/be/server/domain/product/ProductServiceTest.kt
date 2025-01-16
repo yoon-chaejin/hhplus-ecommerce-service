@@ -128,50 +128,6 @@ class ProductServiceTest {
     }
 
     @Test
-    fun `given when 인기 상품 목록 조회 시 then 인기 상품 목록을 반환한다`() {
-        //given
-        given(productRepository.findPopularProducts()).willReturn(listOf(
-            Product(
-                id = 1L,
-                name = "상품명",
-                remainingQuantity = 500,
-                unitPrice = 100,
-            ),
-            Product(
-                id = 2L,
-                name = "상품명",
-                remainingQuantity = 500,
-                unitPrice = 100,
-            ),
-            Product(
-                id = 3L,
-                name = "상품명",
-                remainingQuantity = 500,
-                unitPrice = 100,
-            ),
-            Product(
-                id = 4L,
-                name = "상품명",
-                remainingQuantity = 500,
-                unitPrice = 100,
-            ),
-            Product(
-                id = 5L,
-                name = "상품명",
-                remainingQuantity = 500,
-                unitPrice = 100,
-            )
-        ))
-
-        //when
-        val result = sut.getPopularProducts()
-
-        //then
-        assertInstanceOf(List::class.java, result)
-        assertEquals(5, result.size)
-    }
-
-    @Test
     fun `given 존재하지 않는 상품에 대해 when 상품 잔여 수량 감소 시 then CustomException 이 발생한다`() {
         //given
         val id = 0L
