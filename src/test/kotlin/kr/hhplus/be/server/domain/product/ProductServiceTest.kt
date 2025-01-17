@@ -3,12 +3,14 @@ package kr.hhplus.be.server.domain.product
 import kr.hhplus.be.server.common.exception.CustomException
 import kr.hhplus.be.server.common.exception.CustomExceptionType
 import kr.hhplus.be.server.domain.product.model.Product
+import kr.hhplus.be.server.domain.product.model.ProductStatus
 import org.junit.jupiter.api.Assertions.assertInstanceOf
+import org.mockito.kotlin.any
 import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import java.time.LocalDateTime
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -17,6 +19,19 @@ import kotlin.test.assertFailsWith
 class ProductServiceTest {
     private val productRepository = mock<ProductRepository>()
     private val sut: ProductService = ProductService(productRepository)
+
+    @Test
+    fun `given 존재하지 않는 상품id when 상품 조회 시 then IllegalArgumentException을 반환한다`() {
+        //given
+        given(productRepository.findProductById(any())).willReturn(null)
+
+        //when
+
+        //then
+        assertFailsWith<IllegalArgumentException> {
+            sut.getProductById(0L)
+        }
+    }
 
     @Test
     fun `given when 상품 목록 조회 시 then 목록을 반환한다`() {
@@ -39,51 +54,77 @@ class ProductServiceTest {
         val result = sut.getProducts(pageRequest)
 
         //then
-        assertInstanceOf(Page::class.java, result)
+        assertInstanceOf(List::class.java, result)
     }
 
     @Test
-    fun `given when 인기 상품 목록 조회 시 then 인기 상품 목록을 반환한다`() {
+    fun `given 조회 조건으로 Available이 주어지고 when 상품 목록 조회 시 then Available한 상품 목록을 반환한다`() {
         //given
-        given(productRepository.findPopularProducts()).willReturn(listOf(
-            Product(
+        val status = ProductStatus.AVAILABLE
+        val availableProducts = PageImpl<Product>(
+            listOf(Product(
                 id = 1L,
                 name = "상품명",
                 remainingQuantity = 500,
                 unitPrice = 100,
-            ),
-            Product(
-                id = 2L,
+                createdAt = LocalDateTime.now(),
+                updatedAt = LocalDateTime.now(),
+            )),
+        )
+        val unavailableProducts = PageImpl<Product>(
+            listOf(Product(
+                id = 1L,
                 name = "상품명",
-                remainingQuantity = 500,
+                remainingQuantity = 0,
                 unitPrice = 100,
-            ),
-            Product(
-                id = 3L,
-                name = "상품명",
-                remainingQuantity = 500,
-                unitPrice = 100,
-            ),
-            Product(
-                id = 4L,
-                name = "상품명",
-                remainingQuantity = 500,
-                unitPrice = 100,
-            ),
-            Product(
-                id = 5L,
-                name = "상품명",
-                remainingQuantity = 500,
-                unitPrice = 100,
-            )
-        ))
+                createdAt = LocalDateTime.now(),
+                updatedAt = LocalDateTime.now(),
+            )),
+        )
+
+        given(productRepository.findProductsByRemainingQuantityGreaterThan(any(), any())).willReturn(availableProducts)
+        given(productRepository.findProductsByRemainingQuantityLessThanEqual(any(), any())).willReturn(unavailableProducts)
 
         //when
-        val result = sut.getPopularProducts()
+        val result = sut.getProducts(PageRequest.of(0, 10), status)
 
         //then
-        assertInstanceOf(List::class.java, result)
-        assertEquals(5, result.size)
+        assertEquals(availableProducts.content, result)
+    }
+
+    @Test
+    fun `given 조회 조건으로 Unavabilable 주어지고 when 상품 목록 조회 시 then Unavabilable한 상품 목록을 반환한다`() {
+        //given
+        val status = ProductStatus.UNAVAILABLE
+        val availableProducts = PageImpl<Product>(
+            listOf(Product(
+                id = 1L,
+                name = "상품명",
+                remainingQuantity = 500,
+                unitPrice = 100,
+                createdAt = LocalDateTime.now(),
+                updatedAt = LocalDateTime.now(),
+            )),
+        )
+        val unavailableProducts = PageImpl<Product>(
+            listOf(Product(
+                id = 1L,
+                name = "상품명",
+                remainingQuantity = 0,
+                unitPrice = 100,
+                createdAt = LocalDateTime.now(),
+                updatedAt = LocalDateTime.now(),
+            )),
+        )
+
+        given(productRepository.findProductsByRemainingQuantityGreaterThan(any(), any())).willReturn(availableProducts)
+        given(productRepository.findProductsByRemainingQuantityLessThanEqual(any(), any())).willReturn(unavailableProducts)
+
+        //when
+        val result = sut.getProducts(PageRequest.of(0, 10), status)
+
+        //then
+        assertEquals(unavailableProducts.content, result)
     }
 
     @Test

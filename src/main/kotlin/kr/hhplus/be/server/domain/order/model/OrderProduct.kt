@@ -9,9 +9,10 @@ import java.time.LocalDateTime
 @Entity
 class OrderProduct(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long = 0L,
     val quantity: Int,
     val unitPrice: Int,
+    val productId: Long,
     val createdAt: LocalDateTime = LocalDateTime.now(),
     val updatedAt: LocalDateTime = LocalDateTime.now(),
 ) {

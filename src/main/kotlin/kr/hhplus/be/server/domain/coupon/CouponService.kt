@@ -14,6 +14,10 @@ class CouponService @Autowired constructor (
     private val issuedCouponRepository: IssuedCouponRepository
 ) {
 
+    fun getIssuedCouponsByUserId(userId: Long): List<IssuedCoupon> {
+        return issuedCouponRepository.findIssuedCouponsByUserId(userId)
+    }
+
     @Transactional
     fun issue(templateId: Long, userId: Long): IssuedCoupon {
         val couponTemplate = couponTemplateRepository.findCouponTemplateByIdWithLock(templateId) ?: throw CustomException(

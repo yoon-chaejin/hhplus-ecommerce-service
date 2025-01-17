@@ -13,6 +13,10 @@ class IssuedCouponRepositoryImpl @Autowired constructor(
         return issuedCouponJpaRepository.findForUpdateById(id)
     }
 
+    override fun findIssuedCouponsByUserId(userId: Long): List<IssuedCoupon> {
+        return issuedCouponJpaRepository.findIssuedCouponsByOwnedBy(userId)
+    }
+
     override fun save(issuedCoupon: IssuedCoupon): IssuedCoupon {
         return issuedCouponJpaRepository.save(issuedCoupon)
     }

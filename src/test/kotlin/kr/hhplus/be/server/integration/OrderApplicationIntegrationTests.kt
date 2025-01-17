@@ -1,30 +1,25 @@
 package kr.hhplus.be.server.integration
 
-import kr.hhplus.be.server.domain.product.ProductService
+import kr.hhplus.be.server.application.OrderApplication
+import kr.hhplus.be.server.controller.order.model.OrderProductRequest
+import kr.hhplus.be.server.controller.order.model.OrderRequest
 import org.junit.jupiter.api.assertAll
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.data.domain.PageRequest
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 
 @SpringBootTest
-class ProductServiceIntegrationTests @Autowired constructor(
-    val sut: ProductService
+class OrderApplicationIntegrationTests @Autowired constructor(
+    val sut: OrderApplication,
 ) {
-
     @Test
-    fun `상품 재고 요청이 30건 들어왔을 때, 요청 내용만큼 재고가 차감된다`() {
+    fun `재고가 충분한, 동일한 상품을 포함하는 주문-결제 요청이 2건 들어왔을 때, 2건 모두 성공한다`() {
         //given
-        val numOfIterations = 5
-
-        val productBeforeDecrease = sut.getProducts(PageRequest.of(0, 10)).filter{ it.remainingQuantity >= 5 }.first()
-        assertNotNull(productBeforeDecrease)
-        val quantity = 1
+        val numOfIterations = 2
 
         val executorService = Executors.newFixedThreadPool(numOfIterations)
         val doneSignal = CountDownLatch(numOfIterations)
@@ -35,7 +30,12 @@ class ProductServiceIntegrationTests @Autowired constructor(
         for (i in 1..numOfIterations) {
             executorService.execute {
                 try {
-                    sut.decreaseProductQuantity(productBeforeDecrease.id, quantity)
+                    sut.order(i.toLong(), OrderRequest(
+                        products = listOf(
+                            OrderProductRequest(6L, 1)
+                        ),
+                        couponId = null
+                    ))
                     successCount.getAndIncrement()
                 } catch(e: Exception) {
                     failCount.getAndIncrement()
@@ -48,11 +48,9 @@ class ProductServiceIntegrationTests @Autowired constructor(
         doneSignal.await()
         executorService.shutdown()
 
-        val productAfterDecrease = sut.getProducts(PageRequest.of(0, 10)).filter{ it.id == productBeforeDecrease.id }.first()
-
         //then
         assertAll(
-            { assertEquals(productBeforeDecrease.remainingQuantity - numOfIterations * quantity, productAfterDecrease.remainingQuantity) },
+            { assertEquals(2, successCount.get()) },
         )
     }
 }

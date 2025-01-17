@@ -69,9 +69,9 @@ class CouponControllerIntegrationTest(
 
     @Test
     fun `쿠폰 발급 400 3002`() {
-        val couponTemplateId = 1
+        val couponTemplateId = 2
         val uri = "/coupon-templates/$couponTemplateId/issue"
-        val userId = 2L
+        val userId = 1L
         val request = IssueRequest(userId = userId)
         val body = objectMapper.writeValueAsString(request)
 

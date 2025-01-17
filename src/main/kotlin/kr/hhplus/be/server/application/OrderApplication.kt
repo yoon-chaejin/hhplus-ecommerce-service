@@ -1,5 +1,7 @@
 package kr.hhplus.be.server.application
 
+import kr.hhplus.be.server.common.exception.CustomException
+import kr.hhplus.be.server.common.exception.CustomExceptionType
 import kr.hhplus.be.server.controller.order.model.OrderRequest
 import kr.hhplus.be.server.domain.coupon.CouponService
 import kr.hhplus.be.server.domain.coupon.model.IssuedCoupon
@@ -25,9 +27,10 @@ class OrderApplication @Autowired constructor(
         val orderProducts = ArrayList<OrderProduct>()
 
         for (item in request.products) {
+            require(item.quantity > 0) { throw CustomException(CustomExceptionType.INVALID_ORDER_PRODUCT_QUANTITY) }
             val product = productService.decreaseProductQuantity(item.id, item.quantity)
             orderProducts.add(OrderProduct(
-                id = product.id,
+                productId = product.id,
                 unitPrice = product.unitPrice,
                 quantity = item.quantity,
             ))

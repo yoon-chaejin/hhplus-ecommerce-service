@@ -16,7 +16,7 @@ class ProductControllerIntegrationTest(
 ) {
 
     @Test
-    fun `상품_목록_조회_200`() {
+    fun `상품 목록 조회 200`() {
         val uri = "/products"
         val queryParams = LinkedMultiValueMap<String, String>()
 
@@ -25,7 +25,7 @@ class ProductControllerIntegrationTest(
     }
 
     @Test
-    fun `인기_상품_목록_조회_200`() {
+    fun `인기 상품 목록 조회 200`() {
         val uri = "/products/popular"
 
         mockMvc.perform(MockMvcRequestBuilders.get(uri))
