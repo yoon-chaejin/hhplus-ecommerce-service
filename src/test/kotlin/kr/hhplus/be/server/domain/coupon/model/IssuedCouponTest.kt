@@ -9,7 +9,7 @@ import kotlin.test.assertFailsWith
 
 class IssuedCouponTest {
     @Test
-    fun `given 사용일시가 존재하는 경우 when 상태 조회 시 then 사용 완료로 반환하다`() {
+    fun `사용일시가 존재하는 경우, 상태 조회 시, 사용 완료를 반환하다`() {
         //given
         val now = LocalDateTime.of(2025, 1, 8, 1, 0, 0)
         val template = CouponTemplate(
@@ -38,7 +38,7 @@ class IssuedCouponTest {
     }
 
     @Test
-    fun `given 사용일시가 없고, 사용기한이 지난 경우 when 상태 조회 시 기한 만료를 반환한다`() {
+    fun `사용일시가 없고, 사용기한이 지난 경우, 상태 조회 시, 기한 만료를 반환한다`() {
         //given
         val now = LocalDateTime.of(2025, 1, 8, 1, 0, 0)
         val template = CouponTemplate(
@@ -67,7 +67,7 @@ class IssuedCouponTest {
     }
 
     @Test
-    fun `given 사용일시가 없고, 사용기간이 지나지 않은 경우 when 상태 조회 시 then 사용 가능을 반환한다`() {
+    fun `사용일시가 없고, 사용기간이 지나지 않은 경우, 상태 조회 시, 사용 가능을 반환한다`() {
         //given
         val now = LocalDateTime.of(2025, 1, 8, 1, 0, 0)
         val template = CouponTemplate(
@@ -96,7 +96,7 @@ class IssuedCouponTest {
     }
 
     @Test
-    fun `given 주문자와 쿠폰 소유자가 일치하지 않는 경우 when 쿠폰 사용 시 then CustomException을 반환한다`() {
+    fun `주문자와 쿠폰 소유자가 일치하지 않는 경우, 쿠폰 사용 시, CustomException이 발생한다`() {
         //given
         val ownerId = 1L
         val userId = 2L
@@ -129,7 +129,7 @@ class IssuedCouponTest {
     }
 
     @Test
-    fun `given 쿠폰이 사용가능하지 않은 경우 when 쿠폰 사용 시 then CustomException을 반환한다`() {
+    fun `쿠폰이 사용가능하지 않은 경우, 쿠폰 사용 시, CustomException이 발생한다`() {
         //given
         val ownerId = 1L
         val userId = 1L

@@ -18,7 +18,7 @@ class ProductApplicationTest {
     private val productApplication = ProductApplication(productService, orderProductService)
 
     @Test
-    fun `given 상태에 대한 검색 조건이 없이 when 상품 조회 시 then 두 상태 모두 조회된다`() {
+    fun `상태에 대한 검색 조건이 없는 경우, 상품 조회 시, 두 상태 모두 조회된다`() {
         //given
         val products = listOf(
             Product(
@@ -47,7 +47,7 @@ class ProductApplicationTest {
     }
 
     @Test
-    fun `given 상태에 대한 검색 조건이 AVAILABLE이고 when 상품 조회 시 then 유효한 상품만 조회된다`() {
+    fun `상태에 대한 검색 조건이 AVAILABLE인 경우, 상품 조회 시, 유효한 상품만 조회된다`() {
         //given
         val products = listOf(
             Product(
@@ -77,7 +77,7 @@ class ProductApplicationTest {
 
 
     @Test
-    fun `given 상태에 대한 검색 조건이 UNAVAILABLE이고 when 상품 조회 시 then 유효하지 않은 상품만 조회된다`() {
+    fun `상태에 대한 검색 조건이 UNAVAILABLE인 경우, 상품 조회 시, 유효하지 않은 상품만 조회된다`() {
         //given
         val products = listOf(
             Product(

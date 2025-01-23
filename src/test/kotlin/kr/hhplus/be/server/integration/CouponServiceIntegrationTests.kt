@@ -53,7 +53,7 @@ class CouponServiceIntegrationTests @Autowired constructor(
     }
 
     @Test
-    fun `쿠폰 사용 요청이 2건 이상 들어왔을 때, 1건만 성공한다`() {
+    fun `쿠폰 사용 요청이 2건이 들어왔을 때, 1건만 성공한다`() {
         //given
         val numOfIterations = 2
         val couponId = 1L

@@ -10,7 +10,7 @@ import kotlin.test.assertFailsWith
 
 class CouponTemplateTest {
     @Test
-    fun `given 쿠폰 템플릿의 발급 개수가 최대 발급 개수와 같은 경우 when 쿠폰 발급 시 then CustomException이 발생한다` () {
+    fun `쿠폰 템플릿의 발급 개수가 최대 발급 개수와 같은 경우, 쿠폰 발급 시, CustomException이 발생한다` () {
         //given
         val userId = 1L
         val num = 10
@@ -39,7 +39,7 @@ class CouponTemplateTest {
     }
 
     @Test
-    fun `given 쿠폰 템플릿의 발급 기한이 지난 경우 when 쿠폰 발급 시 then CustomException이 발생한다`() {
+    fun `쿠폰 템플릿의 발급 기한이 지난 경우, 쿠폰 발급 시, CustomException이 발생한다`() {
         //given
         val userId = 1L
         val num = 10
@@ -68,7 +68,7 @@ class CouponTemplateTest {
     }
 
     @Test
-    fun `given when 쿠폰 발급 시 then 365일 이후 만료되는 쿠폰이 발급된다`() {
+    fun `쿠폰 발급 시, 365일 이후 만료되는 쿠폰이 발급된다`() {
         //given
         val userId = 1L
         val now = LocalDateTime.of(2025, 1, 8, 1, 0, 0)

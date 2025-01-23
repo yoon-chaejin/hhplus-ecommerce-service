@@ -14,7 +14,7 @@ class OrderProductServiceTest {
     private val sut = OrderProductService(orderProductRepository)
 
     @Test
-    fun `given when 인기 상품 목록 조회 시 then 인기 상품 목록을 반환한다`() {
+    fun `인기 상품 목록 조회 시, 인기 상품 목록을 반환한다`() {
         //given
         val expected = listOf(
             OrderProductQuantitySumInfo(1L, 5L),
@@ -36,7 +36,7 @@ class OrderProductServiceTest {
     }
 
     @Test
-    fun `given 검색 시작 시점이 검색 종료 시점보다 늦고 when 인기 상품 목록 조회 시 then IllegalArgumentException이 발생한다`() {
+    fun `검색 시작 시점이 검색 종료 시점보다 늦은 경우, 인기 상품 목록 조회 시, IllegalArgumentException이 발생한다`() {
         //given
         val start = LocalDateTime.of(2025, 1, 10, 0, 0)
         val end = LocalDateTime.of(2025, 1, 1, 0, 0)

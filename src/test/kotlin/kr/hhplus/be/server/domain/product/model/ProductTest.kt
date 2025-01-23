@@ -11,7 +11,7 @@ import kotlin.test.assertFailsWith
 class ProductTest {
 
     @Test
-    fun `given 상품의 잔여 수량이 0 이하인 when 상품 상태 조회 시 then 상품 상태는 UNAVAILABLE을 반환한다`() {
+    fun `상품의 잔여 수량이 0 이하인 경우, 상품 상태 조회 시, 상품 상태는 UNAVAILABLE을 반환한다`() {
         //given
         val product = Product(
             id = 1L,
@@ -30,7 +30,7 @@ class ProductTest {
     }
 
     @Test
-    fun `given 상품의 잔여 수량이 0 초과인 when 상품 상태 조회 시 then 상품 상태는 AVAILABLE을 반환한다`() {
+    fun `상품의 잔여 수량이 0 초과인 경우, 상품 상태 조회 시, 상품 상태는 AVAILABLE을 반환한다`() {
         //given
         val product = Product(
             id = 1L,
@@ -49,7 +49,7 @@ class ProductTest {
     }
 
     @Test
-    fun `given 상품 가격이 100 단위가 아닌 when 상품 생성 시 then IllegalArgumentException이 발생한다`() {
+    fun `상품 가격이 100 단위가 아닌 경우, 상품 생성 시, IllegalArgumentException이 발생한다`() {
         //given
         val unitPrice = 150
 
@@ -69,7 +69,7 @@ class ProductTest {
     }
 
     @Test
-    fun `given 상품 가격이 100 단위인 when  상품 생성 시 then 성공한다`() {
+    fun `상품 가격이 100 단위인 경우, 상품 생성 시, 성공한다`() {
         //given
         val unitPrice = 100
 
@@ -88,7 +88,7 @@ class ProductTest {
     }
 
     @Test
-    fun `given 잔여 수량를 초과해서 when 상품 수량 감소 시 then CustomException 이 발생한다`() {
+    fun `잔여 수량를 초과한 경우, 상품 수량 감소 시, CustomException이 발생한다`() {
         //given
         val remainingQuantity = 5
         val amount = remainingQuantity + 1
@@ -110,7 +110,7 @@ class ProductTest {
     }
 
     @Test
-    fun `given 잔여 수량 이하로 when 상품 수량 감소 시 then 상품의 수량이 감소된다`() {
+    fun `잔여 수량 이하인 경우, 상품 수량 감소 시, 상품의 수량이 감소된다`() {
         //given
         val remainingQuantity = 5
         val amount = remainingQuantity

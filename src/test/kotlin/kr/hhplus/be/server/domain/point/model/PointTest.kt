@@ -12,7 +12,7 @@ import kotlin.test.assertFailsWith
 class PointTest () {
 
     @Test
-    fun `given 잔액이 최솟값 미만인 when 포인트 생성 시 then IllegalArgumentException이 발생한다`() {
+    fun `잔액이 최솟값 미만인 경우, 포인트 생성 시, IllegalArgumentException이 발생한다`() {
         //given
 
         //when
@@ -28,7 +28,7 @@ class PointTest () {
     }
 
     @Test
-    fun `given 잔액이 최댓값 초과인 when 포인트 생성 시 then IllegalArgumentException이 발생한다`() {
+    fun `잔액이 최댓값 초과인 경우, 포인트 생성 시, IllegalArgumentException이 발생한다`() {
         //given
 
         //when
@@ -44,7 +44,7 @@ class PointTest () {
     }
 
     @Test
-    fun `given 충전 금액이 최솟값 미만이고 when 포인트 충전 시 then CustomException이 발생한다`() {
+    fun `충전 금액이 최솟값 미만인 경우, 포인트 충전 시, CustomException이 발생한다`() {
         //given
         val amount = Point.MIN_AMOUNT-1
         val point = Point(
@@ -65,7 +65,7 @@ class PointTest () {
     }
 
     @Test
-    fun `given 충전 금액이 백만 초과이고 when 포인트 충전 시 then CustomException이 발생한다`() {
+    fun `충전 금액이 백만 초과인 경우, 포인트 충전 시, CustomException이 발생한다`() {
         //given
         val amount = Point.MAX_AMOUNT+1
         val point = Point(
@@ -86,7 +86,7 @@ class PointTest () {
     }
 
     @Test
-    fun `given 잔액이 1이고 when 충전 후 잔액이 백만 초과이면 then CustomException이 발생한다`() {
+    fun `잔액이 1이고 충전 후 잔액이 백만 초과인 경우, 포인트 충전 시, CustomException이 발생한다`() {
         //given
         val point = Point(
             id = 0L,
@@ -105,7 +105,7 @@ class PointTest () {
     }
 
     @Test
-    fun `given 차감 금액이 0이하이고 when 포인트 차감 시 then IllegalArgumentException이 발생한다`() {
+    fun `차감 금액이 0이하인 경우, 포인트 차감 시, IllegalArgumentException이 발생한다`() {
         //given
         val amount = 0
         val point = Point(
@@ -125,7 +125,7 @@ class PointTest () {
     }
 
     @Test
-    fun `given 차감 금액이 잔액보다 크고 when 포인트 차감 시 then CustomException이 발생한다`() {
+    fun `차감 금액이 잔액보다 큰 경우, 포인트 차감 시, CustomException이 발생한다`() {
         //given
         val balance = 100
         val amount = balance + 1
