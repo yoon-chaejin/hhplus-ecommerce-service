@@ -26,6 +26,7 @@ class PointServiceIntegrationTests @Autowired constructor(
 
         val executorService = Executors.newFixedThreadPool(numOfIterations)
         val doneSignal = CountDownLatch(numOfIterations)
+        val balance = AtomicInteger(1000)
         val successCount = AtomicInteger(0)
         val failCount = AtomicInteger(0)
 
@@ -35,6 +36,7 @@ class PointServiceIntegrationTests @Autowired constructor(
                 try {
                     sut.charge(userId, chargeRequests[i-1])
                     successCount.getAndIncrement()
+                    balance.getAndAdd(chargeRequests[i-1])
                 } catch(e: Exception) {
                     failCount.getAndIncrement()
                 } finally {
@@ -48,6 +50,7 @@ class PointServiceIntegrationTests @Autowired constructor(
                 try {
                     sut.use(userId, useRequests[i-1])
                     successCount.getAndIncrement()
+                    balance.getAndAdd(-1 * useRequests[i-1])
                 } catch(e: Exception) {
                     failCount.getAndIncrement()
                 } finally {
@@ -63,8 +66,8 @@ class PointServiceIntegrationTests @Autowired constructor(
 
         //then
         assertAll(
-            { assertEquals(numOfIterations, successCount.get()) },
-            { assertEquals(1000 + chargeRequests.sum() - useRequests.sum(), result.balance) },
+            { assertEquals(numOfIterations, successCount.get() + failCount.get()) },
+            { assertEquals(balance.get(), result.balance) },
         )
     }
 }
