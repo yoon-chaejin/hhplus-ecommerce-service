@@ -3,6 +3,7 @@ package kr.hhplus.be.server.domain.coupon.model
 import jakarta.persistence.*
 import kr.hhplus.be.server.common.exception.CustomException
 import kr.hhplus.be.server.common.exception.CustomExceptionType
+import org.hibernate.annotations.ColumnDefault
 import java.time.LocalDateTime
 
 @Entity
@@ -16,6 +17,9 @@ class IssuedCoupon(
     var usedAt: LocalDateTime?,
     val createdAt: LocalDateTime = LocalDateTime.now(),
     val updatedAt: LocalDateTime = LocalDateTime.now(),
+    @Version
+    @ColumnDefault("0")
+    val version: Long = 0L,
 ) {
     fun getStatus(at: LocalDateTime = LocalDateTime.now()): CouponStatus {
         if (usedAt != null) {

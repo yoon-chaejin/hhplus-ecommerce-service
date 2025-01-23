@@ -10,7 +10,8 @@ class IssuedCouponRepositoryImpl @Autowired constructor(
     private val issuedCouponJpaRepository: IssuedCouponJpaRepository,
 ) : IssuedCouponRepository {
     override fun findIssuedCouponByIdWithLock(id: Long): IssuedCoupon? {
-        return issuedCouponJpaRepository.findForUpdateById(id)
+//        return issuedCouponJpaRepository.findForUpdateById(id)
+        return issuedCouponJpaRepository.findWithOptimisticLockById(id)
     }
 
     override fun findIssuedCouponsByUserId(userId: Long): List<IssuedCoupon> {
