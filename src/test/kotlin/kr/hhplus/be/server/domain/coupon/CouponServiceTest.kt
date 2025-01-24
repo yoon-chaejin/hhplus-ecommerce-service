@@ -52,8 +52,6 @@ class CouponServiceTest {
             ownedBy = userId,
             usedAt = now,
             expiresAt = now.plusDays(1),
-            createdAt = now.minusDays(1),
-            updatedAt = now.minusDays(1),
         )
         val coupons = listOf(coupon)
 
@@ -95,8 +93,6 @@ class CouponServiceTest {
             maxIssueCount = 10,
             discountRate = 10,
             issuableUntil = now.plusDays(1),
-            createdAt = now,
-            updatedAt = now
         )
         val issuedCoupon = couponTemplate.issueCoupon(userId, now)
 
@@ -107,8 +103,6 @@ class CouponServiceTest {
                 maxIssueCount = 10,
                 discountRate = 10,
                 issuableUntil = now.plusDays(1),
-                createdAt = now,
-                updatedAt = now
             )
         )
 

@@ -26,8 +26,6 @@ class IssuedCouponTest {
             ownedBy = 1L,
             usedAt = now,
             expiresAt = now.plusDays(1),
-            createdAt = now.minusDays(1),
-            updatedAt = now.minusDays(1),
         )
 
         //when
@@ -55,8 +53,6 @@ class IssuedCouponTest {
             ownedBy = 1L,
             usedAt = null,
             expiresAt = now.minusDays(1),
-            createdAt = now.minusDays(2),
-            updatedAt = now.minusDays(2),
         )
 
         //when
@@ -84,8 +80,6 @@ class IssuedCouponTest {
             ownedBy = 1L,
             usedAt = null,
             expiresAt = now.plusDays(1),
-            createdAt = now.minusDays(2),
-            updatedAt = now.minusDays(2),
         )
 
         //when
@@ -115,8 +109,6 @@ class IssuedCouponTest {
             ownedBy = ownerId,
             usedAt = null,
             expiresAt = now.plusDays(1),
-            createdAt = now.minusDays(1),
-            updatedAt = now.minusDays(1),
         )
 
         //when
@@ -148,8 +140,6 @@ class IssuedCouponTest {
             ownedBy = ownerId,
             usedAt = now.minusDays(1),
             expiresAt = now.plusDays(1),
-            createdAt = now.minusDays(1),
-            updatedAt = now.minusDays(1),
         )
         assert(coupon.getStatus(now) != CouponStatus.USABLE)
 

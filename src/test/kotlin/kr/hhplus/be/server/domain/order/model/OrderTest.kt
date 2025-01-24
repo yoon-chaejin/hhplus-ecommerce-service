@@ -80,8 +80,6 @@ class OrderTest {
             template = template,
             usedAt = null,
             expiresAt = now.minusDays(1),
-            createdAt = now.minusDays(2),
-            updatedAt = now.minusDays(2),
         )
 
         //when
@@ -116,8 +114,6 @@ class OrderTest {
             ownedBy = userId,
             usedAt = null,
             expiresAt = now.plusDays(1),
-            createdAt = now.minusDays(1),
-            updatedAt = now.minusDays(1),
         )
         val orderProducts = listOf(
             OrderProduct(
@@ -125,8 +121,6 @@ class OrderTest {
                 unitPrice = 500,
                 quantity = 5,
                 productId = 1L,
-                createdAt = LocalDateTime.now(),
-                updatedAt = LocalDateTime.now(),
             )
         )
 
@@ -154,8 +148,6 @@ class OrderTest {
                 unitPrice = 500,
                 quantity = 5,
                 productId = 1L,
-                createdAt = LocalDateTime.now(),
-                updatedAt = LocalDateTime.now(),
             )
         )
 

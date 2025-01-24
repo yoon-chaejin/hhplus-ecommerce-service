@@ -22,8 +22,6 @@ class PointTest () {
             id = 0L,
             userId = 1L,
             balance = Point.MIN_BALANCE-1,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
         ) }
     }
 
@@ -38,8 +36,6 @@ class PointTest () {
             id = 0L,
             userId = 1L,
             balance = Point.MAX_BALANCE+1,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
         ) }
     }
 
@@ -51,8 +47,6 @@ class PointTest () {
             id = 0L,
             userId = 1L,
             balance = 0,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
         )
 
         //when
@@ -72,8 +66,6 @@ class PointTest () {
             id = 0L,
             userId = 1L,
             balance = 0,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
         )
 
         //when
@@ -92,8 +84,6 @@ class PointTest () {
             id = 0L,
             userId = 1L,
             balance = 1,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
         )
 
         //when
@@ -112,8 +102,6 @@ class PointTest () {
             id = 0L,
             userId = 1L,
             balance = 1,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
         )
 
         //when
@@ -134,8 +122,6 @@ class PointTest () {
             id = 0L,
             userId = 1L,
             balance = balance,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
         )
 
         //when

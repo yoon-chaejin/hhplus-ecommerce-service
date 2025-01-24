@@ -18,8 +18,6 @@ class ProductTest {
             name = "상품명",
             remainingQuantity = 0,
             unitPrice = 100,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
         )
 
         //when
@@ -37,8 +35,6 @@ class ProductTest {
             name = "상품명",
             remainingQuantity = 50,
             unitPrice = 100,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
         )
 
         //when
@@ -62,8 +58,6 @@ class ProductTest {
                 name = "상품명",
                 remainingQuantity = 0,
                 unitPrice = unitPrice,
-                createdAt = LocalDateTime.now(),
-                updatedAt = LocalDateTime.now()
             )
         }
     }
@@ -79,8 +73,6 @@ class ProductTest {
             name = "상품명",
             remainingQuantity = 0,
             unitPrice = unitPrice,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
         )
 
         //then
@@ -97,8 +89,6 @@ class ProductTest {
             name = "상품명",
             remainingQuantity = remainingQuantity,
             unitPrice = 100,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
         )
 
         //when
@@ -119,8 +109,6 @@ class ProductTest {
             name = "상품명",
             remainingQuantity = remainingQuantity,
             unitPrice = 100,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
         )
 
         //when

@@ -6,8 +6,8 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import kr.hhplus.be.server.common.exception.CustomException
 import kr.hhplus.be.server.common.exception.CustomExceptionType
+import kr.hhplus.be.server.common.model.BaseEntity
 import java.lang.IllegalArgumentException
-import java.time.LocalDateTime
 
 @Entity
 class Product(
@@ -16,9 +16,7 @@ class Product(
     val name: String,
     var remainingQuantity: Int,
     val unitPrice: Int,
-    val createdAt: LocalDateTime = LocalDateTime.now(),
-    val updatedAt: LocalDateTime = LocalDateTime.now(),
-) {
+) : BaseEntity() {
     init {
         require(unitPrice % 100 == 0) { throw IllegalArgumentException("상품 가격은 100 단위로 지정해야 합니다.")}
     }

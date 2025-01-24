@@ -24,8 +24,6 @@ class OrderServiceTest {
                 unitPrice = 500,
                 quantity = 5,
                 productId = 1L,
-                createdAt = LocalDateTime.now(),
-                updatedAt = LocalDateTime.now(),
             )
         )
         given(orderRepository.save(order = any())).willReturn(

@@ -57,16 +57,12 @@ class OrderApplicationTest {
             ownedBy = 1L,
             usedAt = now,
             expiresAt = now.plusDays(365),
-            createdAt = now.minusDays(20),
-            updatedAt = now,
         )
         given(productService.decreaseProductQuantity(anyLong(), anyInt())).willReturn(product)
         given(couponService.use(anyLong(), anyLong())).willReturn(coupon)
         given(orderService.create(anyLong(), any(), any())).willReturn(
             Order(
                 id = 1L,
-                createdAt = now,
-                updatedAt = now,
                 orderProducts = listOf(
                     OrderProduct(
                         id = 1L,

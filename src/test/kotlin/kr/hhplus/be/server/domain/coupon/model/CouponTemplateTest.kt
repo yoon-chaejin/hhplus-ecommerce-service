@@ -25,8 +25,6 @@ class CouponTemplateTest {
             issueCount = num,
             maxIssueCount = num,
             issuableUntil = issuableUntil,
-            createdAt = createdAt,
-            updatedAt = createdAt,
         )
 
         //when
@@ -54,8 +52,6 @@ class CouponTemplateTest {
             issueCount = num - 1,
             maxIssueCount = num,
             issuableUntil = issuableUntil,
-            createdAt = createdAt,
-            updatedAt = createdAt,
         )
 
         //when
@@ -79,8 +75,6 @@ class CouponTemplateTest {
             issueCount = 1,
             maxIssueCount = 10,
             issuableUntil = now.plusDays(1),
-            createdAt = now.minusDays(1),
-            updatedAt = now.minusDays(1),
         )
 
         //when

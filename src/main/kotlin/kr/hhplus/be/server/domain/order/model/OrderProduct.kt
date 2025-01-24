@@ -4,7 +4,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
-import java.time.LocalDateTime
+import kr.hhplus.be.server.common.model.BaseEntity
 
 @Entity
 class OrderProduct(
@@ -13,7 +13,4 @@ class OrderProduct(
     val quantity: Int,
     val unitPrice: Int,
     val productId: Long,
-    val createdAt: LocalDateTime = LocalDateTime.now(),
-    val updatedAt: LocalDateTime = LocalDateTime.now(),
-) {
-}
+) : BaseEntity()

@@ -43,8 +43,6 @@ class ProductServiceTest {
                 name = "상품명",
                 remainingQuantity = 500,
                 unitPrice = 100,
-                createdAt = LocalDateTime.now(),
-                updatedAt = LocalDateTime.now(),
             )),
         )
 
@@ -67,8 +65,6 @@ class ProductServiceTest {
                 name = "상품명",
                 remainingQuantity = 500,
                 unitPrice = 100,
-                createdAt = LocalDateTime.now(),
-                updatedAt = LocalDateTime.now(),
             )),
         )
         val unavailableProducts = PageImpl<Product>(
@@ -77,8 +73,6 @@ class ProductServiceTest {
                 name = "상품명",
                 remainingQuantity = 0,
                 unitPrice = 100,
-                createdAt = LocalDateTime.now(),
-                updatedAt = LocalDateTime.now(),
             )),
         )
 
@@ -102,8 +96,6 @@ class ProductServiceTest {
                 name = "상품명",
                 remainingQuantity = 500,
                 unitPrice = 100,
-                createdAt = LocalDateTime.now(),
-                updatedAt = LocalDateTime.now(),
             )),
         )
         val unavailableProducts = PageImpl<Product>(
@@ -112,8 +104,6 @@ class ProductServiceTest {
                 name = "상품명",
                 remainingQuantity = 0,
                 unitPrice = 100,
-                createdAt = LocalDateTime.now(),
-                updatedAt = LocalDateTime.now(),
             )),
         )
 
