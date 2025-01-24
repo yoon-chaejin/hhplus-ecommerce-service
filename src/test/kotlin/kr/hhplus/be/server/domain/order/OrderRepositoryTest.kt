@@ -18,7 +18,7 @@ class OrderRepositoryTest @Autowired constructor(
     val sut : OrderRepository,
 ) {
     @Test
-    fun `given 주문 정보 when 주문 저장 시 then 주문 상품 목록도 저장된다`() {
+    fun `주문 정보가 주어진 경우, 주문 저장 시, 주문 상품 목록도 저장된다`() {
         //given
         val order = Order(
             id = 0L,

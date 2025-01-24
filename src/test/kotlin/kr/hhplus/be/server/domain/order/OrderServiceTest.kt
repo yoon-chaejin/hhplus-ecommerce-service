@@ -14,7 +14,7 @@ class OrderServiceTest {
     private val sut = OrderService(orderRepository)
 
     @Test
-    fun `given when 주문 생성 시 then 주문이 반환된다`() {
+    fun `주문 생성 시, 주문이 반환된다`() {
         //given
         val userId = 1L
         val coupon = null

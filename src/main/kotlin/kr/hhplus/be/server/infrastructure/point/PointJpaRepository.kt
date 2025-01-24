@@ -10,4 +10,7 @@ import org.springframework.stereotype.Repository
 interface PointJpaRepository : JpaRepository<Point, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     fun findForUpdateByUserId(userId: Long): Point?
+
+    @Lock(LockModeType.OPTIMISTIC)
+    fun findWithOptimisticLockByUserId(userId: Long): Point?
 }

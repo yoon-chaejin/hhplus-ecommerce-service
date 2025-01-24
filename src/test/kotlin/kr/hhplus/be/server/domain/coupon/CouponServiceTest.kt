@@ -21,7 +21,7 @@ class CouponServiceTest {
     private val sut: CouponService = CouponService(couponTemplateRepository, issuedCouponRepository)
 
     @Test
-    fun `given 쿠폰 목록이 없는 사용자인 경우 when 쿠폰 목록 조회 시 then 빈 리스트를 반환한다`() {
+    fun `쿠폰 목록이 없는 사용자인 경우, 쿠폰 목록 조회 시, 빈 리스트를 반환한다`() {
         //given
         val userId = 1L
         given(issuedCouponRepository.findIssuedCouponsByUserId(userId)).willReturn(emptyList())
@@ -34,7 +34,7 @@ class CouponServiceTest {
     }
 
     @Test
-    fun `given 쿠폰 목록이 있는 사용자인 경우 when 쿠폰 목록 조회 시 then 쿠폰 목록을 반환한다`() {
+    fun `쿠폰 목록이 있는 사용자인 경우, 쿠폰 목록 조회 시, 쿠폰 목록을 반환한다`() {
         //given
         val userId = 1L
         val now = LocalDateTime.of(2025, 1, 8, 1, 0, 0)
@@ -67,7 +67,7 @@ class CouponServiceTest {
     }
 
     @Test
-    fun `given 존재하지 않는 쿠폰 템플릿 id인 경우 when 쿠폰 발급 시 then CustomException을 반환한다`() {
+    fun `존재하지 않는 쿠폰 템플릿 id인 경우, 쿠폰 발급 시, CustomException이 발생한다`() {
         //given
         val templateId = 0L
         val userId = 1L
@@ -83,7 +83,7 @@ class CouponServiceTest {
     }
 
     @Test
-    fun `given when 쿠폰 발급 시 then 쿠폰이 발급된다`() {
+    fun `쿠폰 발급 시, 쿠폰이 발급된다`() {
         //given
         val templateId = 1L
         val userId = 1L
@@ -124,7 +124,7 @@ class CouponServiceTest {
     }
 
     @Test
-    fun `given 존재하지 않는 쿠폰 id인 경우 when 쿠폰 사용 시 then CustomException을 반환한다`() {
+    fun `존재하지 않는 쿠폰 id인 경우, 쿠폰 사용 시, CustomException이 발생한다`() {
         //given
         val couponId = 0L
         val userId = 1L

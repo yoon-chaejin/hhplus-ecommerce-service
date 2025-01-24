@@ -18,7 +18,7 @@ class ProductServiceIntegrationTests @Autowired constructor(
 ) {
 
     @Test
-    fun `상품 재고 요청이 30건 들어왔을 때, 요청 내용만큼 재고가 차감된다`() {
+    fun `상품 재고 요청이 5건 들어왔을 때, 요청 내용만큼 재고가 차감된다`() {
         //given
         val numOfIterations = 5
 

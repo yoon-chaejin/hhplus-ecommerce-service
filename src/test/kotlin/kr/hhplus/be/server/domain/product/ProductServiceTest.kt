@@ -21,7 +21,7 @@ class ProductServiceTest {
     private val sut: ProductService = ProductService(productRepository)
 
     @Test
-    fun `given 존재하지 않는 상품id when 상품 조회 시 then IllegalArgumentException을 반환한다`() {
+    fun `존재하지 않는 상품id인 경우, 상품 조회 시, IllegalArgumentException이 발생한다`() {
         //given
         given(productRepository.findProductById(any())).willReturn(null)
 
@@ -34,7 +34,7 @@ class ProductServiceTest {
     }
 
     @Test
-    fun `given when 상품 목록 조회 시 then 목록을 반환한다`() {
+    fun `상품 목록 조회 시, 목록을 반환한다`() {
         //given
         val pageRequest = PageRequest.of(0, 10)
         val page = PageImpl<Product>(
@@ -58,7 +58,7 @@ class ProductServiceTest {
     }
 
     @Test
-    fun `given 조회 조건으로 Available이 주어지고 when 상품 목록 조회 시 then Available한 상품 목록을 반환한다`() {
+    fun `조회 조건으로 Available이 주어진 경우, 상품 목록 조회 시, Available한 상품 목록을 반환한다`() {
         //given
         val status = ProductStatus.AVAILABLE
         val availableProducts = PageImpl<Product>(
@@ -93,7 +93,7 @@ class ProductServiceTest {
     }
 
     @Test
-    fun `given 조회 조건으로 Unavabilable 주어지고 when 상품 목록 조회 시 then Unavabilable한 상품 목록을 반환한다`() {
+    fun `조회 조건으로 Unavailable이 주어진 경우, 상품 목록 조회 시, Unavailable한 상품 목록을 반환한다`() {
         //given
         val status = ProductStatus.UNAVAILABLE
         val availableProducts = PageImpl<Product>(
@@ -128,7 +128,7 @@ class ProductServiceTest {
     }
 
     @Test
-    fun `given 존재하지 않는 상품에 대해 when 상품 잔여 수량 감소 시 then CustomException 이 발생한다`() {
+    fun `존재하지 않는 상품인 경우, 상품 잔여 수량 감소 시, CustomException이 발생한다`() {
         //given
         val id = 0L
         given(productRepository.findProductByIdWithLock(id)).willReturn(null)

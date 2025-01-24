@@ -10,7 +10,7 @@ import kotlin.test.assertFailsWith
 class OrderTest {
 
     @Test
-    fun `given 주문상품목록이 비어있으면 when 주문 생성 시 then IllegalArgumentException이 발생된다`() {
+    fun `주문 상품 목록이 빈 경우, 주문 생성 시, IllegalArgumentException이 발생한다`() {
         //given
         val orderProducts = emptyList<OrderProduct>()
         val userId = 1L
@@ -28,7 +28,7 @@ class OrderTest {
     }
 
     @Test
-    fun `given 주문수량이 0이면 when 주문 생성 시 then IllegalArgumentException이 발생된다`() {
+    fun `주문수량이 0인 경우, 주문 생성 시, IllegalArgumentException이 발생한다`() {
         //given
         val orderProducts = listOf(
             OrderProduct(
@@ -54,7 +54,7 @@ class OrderTest {
     }
 
     @Test
-    fun `given 쿠폰 소유자와 주문자가 다른 경우 when 주문 생성 시 IllegalArgumentException이 발생한다`() {
+    fun `쿠폰 소유자와 주문자가 다른 경우, 주문 생성 시, IllegalArgumentException이 발생한다`() {
         //given
         val orderProducts = listOf(
             OrderProduct(
@@ -98,7 +98,7 @@ class OrderTest {
     }
 
     @Test
-    fun `given 상품 목록과 쿠폰으로 when 주문 생성 시 then 주문 금액과 결제 금액이 계산되고, 쿠폰이 사용처리된다`() {
+    fun `상품 목록과 쿠폰이 주어진 경우, 주문 생성 시, 주문 금액과 결제 금액이 계산되고 쿠폰이 사용처리된다`() {
         //given
         val userId = 1L
         val discountRate = 10
@@ -144,7 +144,7 @@ class OrderTest {
     }
 
     @Test
-    fun `given 상품 목록으로 when 주문 생성 시 then 주문 금액과 결제 금액이 동일하다`() {
+    fun `상품 목록이 주어진 경우, 주문 생성 시, 주문 금액과 결제 금액이 동일하다`() {
         //given
         val userId = 1L
         val coupon = null

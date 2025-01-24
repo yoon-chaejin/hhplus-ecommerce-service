@@ -27,7 +27,7 @@ class OrderApplicationTest {
     private val sut = OrderApplication(orderService, productService, couponService, pointService)
 
     @Test
-    fun `given 쿠폰이 있을 때 when 주문 시 then 쿠폰 사용이 호출된다`() {
+    fun `쿠폰이 있을 경우, 주문 시, 쿠폰 사용이 호출된다`() {
         //given
         val userId = 1L
         val couponId = 1L

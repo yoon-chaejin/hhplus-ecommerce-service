@@ -13,7 +13,7 @@ class PointServiceTest {
     private val sut: PointService = PointService(pointRepository)
 
     @Test
-    fun `given 포인트 정보가 없는 사용자, when 포인트 조회 시 then 잔액이 0인 포인트를 반환한다`() {
+    fun `포인트 정보가 없는 사용자인 경우, 포인트 조회 시, 잔액이 0인 포인트를 반환한다`() {
         //given
         val userId = 1L
         given(pointRepository.findPointByUserIdWithLock(userId)).willReturn(null)
@@ -27,7 +27,7 @@ class PointServiceTest {
     }
 
     @Test
-    fun `given 포인트 정보가 있는 사용자 when 포인트 조회 시 then 해당 사용자의 포인트를 반환한다`() {
+    fun `포인트 정보가 있는 사용자인 경우, 포인트 조회 시, 해당 사용자의 포인트를 반환한다`() {
         //given
         val userId = 1L
         val balance = 500
@@ -42,7 +42,7 @@ class PointServiceTest {
     }
 
     @Test
-    fun `given 사용자와 충전 금액 when 포인트 충전 시 then 충전된 포인트를 반환한다`() {
+    fun `사용자와 충전 금액이 주어진 경우, 포인트 충전 시, 충전된 포인트를 반환한다`() {
         //given
         val userId = 1L
         val balance = 300
@@ -58,7 +58,7 @@ class PointServiceTest {
     }
 
     @Test
-    fun `given 사용자와 충전 금액 when 포인트 사용 시 then 사용 후 포인트를 반환한다`() {
+    fun `사용자와 충전 금액이 주어진 경우, 포인트 사용 시, 사용 후 포인트를 반환한다`() {
         //given
         val userId = 1L
         val balance = 500

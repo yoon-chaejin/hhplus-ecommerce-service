@@ -18,7 +18,7 @@ class ProductRepositoryTest @Autowired constructor(
     val sut : ProductRepository
 ) {
     @Test
-    fun `given when 잔여수량이 0보다 큰 상품 조회 시 then 잔여수량이 0보다 큰 상품 목록을 반환한다`() {
+    fun `잔여수량이 0보다 큰 상품 조회 시, 잔여수량이 0보다 큰 상품 목록을 반환한다`() {
         //given
 
         //when
@@ -32,7 +32,7 @@ class ProductRepositoryTest @Autowired constructor(
     }
 
     @Test
-    fun `given when 잔여수량이 0이하인 상품 조회 시 then 잔여수량이 0이하인 상품 목록을 반환한다`() {
+    fun `잔여수량이 0이하인 상품 조회 시, 잔여수량이 0이하인 상품 목록을 반환한다`() {
         //given
 
         //when

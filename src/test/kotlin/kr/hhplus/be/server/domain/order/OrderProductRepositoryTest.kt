@@ -18,7 +18,7 @@ class OrderProductRepositoryTest @Autowired constructor(
     private val sut: OrderProductRepository,
 ) {
     @Test
-    fun `given 7일 전, 3일 전, 지금 주문이 이뤄졌을 때 when 기간 내 인기 상품 주문량 조회 시 then 기간 내 판매량 상위 5건이 반환된다`() {
+    fun `7일 전, 3일 전, 지금 주문이 이루어진 경우, 기간 내 인기 상품 주문량 조회 시, 기간 내 판매량 상위 5건이 반환된다`() {
         //given
         val now = LocalDateTime.of(2025, 1, 10, 0, 0, 0)
         val expected = listOf(
