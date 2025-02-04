@@ -1,15 +1,10 @@
 package kr.hhplus.be.server.integration
 
+import kr.hhplus.be.server.ServiceIntegrationTest
 import kr.hhplus.be.server.domain.coupon.CouponService
-import kr.hhplus.be.server.domain.coupon.model.CouponTemplate
-import kr.hhplus.be.server.domain.coupon.model.IssuedCoupon
-import kr.hhplus.be.server.infrastructure.coupon.CouponTemplateJpaRepository
-import kr.hhplus.be.server.infrastructure.coupon.IssuedCouponJpaRepository
 import org.junit.jupiter.api.assertAll
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import java.time.LocalDateTime
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicInteger
@@ -17,26 +12,16 @@ import kotlin.system.measureTimeMillis
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-@SpringBootTest
 class CouponServiceIntegrationTests @Autowired constructor(
     val sut: CouponService,
-    val couponTemplateJpaRepository: CouponTemplateJpaRepository,
-    val issuedCouponJpaRepository: IssuedCouponJpaRepository,
-) {
+) : ServiceIntegrationTest() {
     val logger = LoggerFactory.getLogger(javaClass)
 
     @Test
     fun `쿠폰 최대 발급 개수가 10개이고, 쿠폰 발급 요청이 20건 들어왔을 때, 10건만 성공한다`() {
         //given
         val numOfIterations = 20
-        val template = CouponTemplate(
-            id =  0L,
-            discountRate = 10,
-            issueCount = 0,
-            maxIssueCount = 10,
-            issuableUntil = LocalDateTime.now().plusDays(1)
-        )
-        val templateId = couponTemplateJpaRepository.saveAndFlush(template).id
+        val template = databaseTestFixture.createCouponTemplate()
 
         val executorService = Executors.newFixedThreadPool(numOfIterations)
         val doneSignal = CountDownLatch(numOfIterations)
@@ -47,7 +32,7 @@ class CouponServiceIntegrationTests @Autowired constructor(
         for (i in 1..numOfIterations) {
             executorService.execute {
                 try {
-                    sut.issue(templateId, i.toLong())
+                    sut.issue(template.id, i.toLong())
                     successCount.getAndIncrement()
                 } catch(e: Exception) {
                     failCount.getAndIncrement()
@@ -72,23 +57,8 @@ class CouponServiceIntegrationTests @Autowired constructor(
         val numOfIterations = 2
 
         val userId = 1L
-        val template = CouponTemplate(
-            id =  0L,
-            discountRate = 10,
-            issueCount = 0,
-            maxIssueCount = 10,
-            issuableUntil = LocalDateTime.now().plusDays(1)
-        )
-        couponTemplateJpaRepository.save(template)
-
-        val coupon = IssuedCoupon(
-            id = 0L,
-            template = template,
-            usedAt = null,
-            ownedBy = userId,
-            expiresAt = LocalDateTime.now().plusDays(1),
-        )
-        val couponId = issuedCouponJpaRepository.saveAndFlush(coupon).id
+        val template = databaseTestFixture.createCouponTemplate()
+        val coupon = databaseTestFixture.createIssuedCoupon(ownedBy = userId, template = template)
 
         val executorService = Executors.newFixedThreadPool(numOfIterations)
         val doneSignal = CountDownLatch(numOfIterations)
@@ -100,7 +70,7 @@ class CouponServiceIntegrationTests @Autowired constructor(
             for (i in 1..numOfIterations) {
                 executorService.execute {
                     try {
-                        sut.use(couponId, userId)
+                        sut.use(coupon.id, userId)
                         successCount.getAndIncrement()
                     } catch(e: Exception) {
                         failCount.getAndIncrement()

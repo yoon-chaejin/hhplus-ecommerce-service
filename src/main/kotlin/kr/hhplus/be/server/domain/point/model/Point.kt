@@ -7,6 +7,7 @@ import org.hibernate.annotations.ColumnDefault
 import kr.hhplus.be.server.common.model.BaseEntity
 
 @Entity
+@Table(name = "point")
 class Point(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L,

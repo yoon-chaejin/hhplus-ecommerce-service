@@ -1,15 +1,13 @@
 package kr.hhplus.be.server.domain.coupon.model
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 import kr.hhplus.be.server.common.exception.CustomException
 import kr.hhplus.be.server.common.exception.CustomExceptionType
 import kr.hhplus.be.server.common.model.BaseEntity
 import java.time.LocalDateTime
 
 @Entity
+@Table(name = "coupon_template")
 class CouponTemplate(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,

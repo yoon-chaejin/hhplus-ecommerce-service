@@ -8,6 +8,7 @@ import org.hibernate.annotations.ColumnDefault
 import java.time.LocalDateTime
 
 @Entity
+@Table(name = "issued_coupon")
 class IssuedCoupon(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
