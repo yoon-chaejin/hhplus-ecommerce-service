@@ -1,10 +1,15 @@
 package kr.hhplus.be.server.integration
 
 import kr.hhplus.be.server.domain.coupon.CouponService
+import kr.hhplus.be.server.domain.coupon.model.CouponTemplate
+import kr.hhplus.be.server.domain.coupon.model.IssuedCoupon
+import kr.hhplus.be.server.infrastructure.coupon.CouponTemplateJpaRepository
+import kr.hhplus.be.server.infrastructure.coupon.IssuedCouponJpaRepository
 import org.junit.jupiter.api.assertAll
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import java.time.LocalDateTime
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicInteger
@@ -14,7 +19,9 @@ import kotlin.test.assertEquals
 
 @SpringBootTest
 class CouponServiceIntegrationTests @Autowired constructor(
-    val sut: CouponService
+    val sut: CouponService,
+    val couponTemplateJpaRepository: CouponTemplateJpaRepository,
+    val issuedCouponJpaRepository: IssuedCouponJpaRepository,
 ) {
     val logger = LoggerFactory.getLogger(javaClass)
 
@@ -22,7 +29,14 @@ class CouponServiceIntegrationTests @Autowired constructor(
     fun `쿠폰 최대 발급 개수가 10개이고, 쿠폰 발급 요청이 20건 들어왔을 때, 10건만 성공한다`() {
         //given
         val numOfIterations = 20
-        val templateId = 3L
+        val template = CouponTemplate(
+            id =  0L,
+            discountRate = 10,
+            issueCount = 0,
+            maxIssueCount = 10,
+            issuableUntil = LocalDateTime.now().plusDays(1)
+        )
+        val templateId = couponTemplateJpaRepository.saveAndFlush(template).id
 
         val executorService = Executors.newFixedThreadPool(numOfIterations)
         val doneSignal = CountDownLatch(numOfIterations)
@@ -56,8 +70,25 @@ class CouponServiceIntegrationTests @Autowired constructor(
     fun `쿠폰 사용 요청이 2건이 들어왔을 때, 1건만 성공한다`() {
         //given
         val numOfIterations = 2
-        val couponId = 1L
+
         val userId = 1L
+        val template = CouponTemplate(
+            id =  0L,
+            discountRate = 10,
+            issueCount = 0,
+            maxIssueCount = 10,
+            issuableUntil = LocalDateTime.now().plusDays(1)
+        )
+        couponTemplateJpaRepository.save(template)
+
+        val coupon = IssuedCoupon(
+            id = 0L,
+            template = template,
+            usedAt = null,
+            ownedBy = userId,
+            expiresAt = LocalDateTime.now().plusDays(1),
+        )
+        val couponId = issuedCouponJpaRepository.saveAndFlush(coupon).id
 
         val executorService = Executors.newFixedThreadPool(numOfIterations)
         val doneSignal = CountDownLatch(numOfIterations)
