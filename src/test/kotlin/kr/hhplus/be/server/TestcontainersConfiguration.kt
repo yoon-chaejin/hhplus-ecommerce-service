@@ -36,7 +36,7 @@ class TestcontainersConfiguration {
 
             // Redis 관련 시스템 프로퍼티 설정
             System.setProperty("spring.redis.host", redisContainer.host)
-            System.setProperty("spring.redis.port", redisContainer.getMappedPort(6379).toString())
+            System.setProperty("spring.redis.port", redisContainer.firstMappedPort.toString())
 
         }
     }
