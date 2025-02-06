@@ -1,6 +1,7 @@
 package kr.hhplus.be.server.application
 
 import kr.hhplus.be.server.application.model.PopularProductInfo
+import kr.hhplus.be.server.common.utils.LocalDateTimeTruncator
 import kr.hhplus.be.server.domain.order.OrderProductService
 import kr.hhplus.be.server.domain.product.ProductService
 import kr.hhplus.be.server.domain.product.model.Product
@@ -24,7 +25,7 @@ class ProductApplication @Autowired constructor (
     }
 
     fun getPopularProducts() : List<PopularProductInfo> {
-        val end = LocalDateTime.now()
+        val end = LocalDateTimeTruncator.truncateToNearestFiveMinutes(LocalDateTime.now())
         val start = end.minusDays(3)
 
         return orderProductService.getPopularOrderProducts(start, end).map {
