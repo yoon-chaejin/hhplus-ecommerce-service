@@ -52,6 +52,9 @@ dependencies {
     // API Documentation
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.0")
 
+    // Redis
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
     // DB
 	runtimeOnly("com.mysql:mysql-connector-j")
 
