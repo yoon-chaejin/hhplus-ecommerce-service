@@ -1,7 +1,7 @@
 package kr.hhplus.be.server.application
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import kr.hhplus.be.server.domain.order.OrderProductService
+import kr.hhplus.be.server.domain.product.PopularProductService
 import kr.hhplus.be.server.domain.product.ProductService
 import kr.hhplus.be.server.domain.product.model.Product
 import kr.hhplus.be.server.domain.product.model.ProductStatus
@@ -10,14 +10,14 @@ import org.mockito.kotlin.eq
 import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
 import org.springframework.data.domain.PageRequest
-import org.springframework.data.redis.core.RedisTemplate
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ProductApplicationTest {
     private val productService = mock<ProductService>()
     private val orderProductService = mock<OrderProductService>()
-    private val productApplication = ProductApplication(productService, orderProductService, RedisTemplate(), ObjectMapper())
+    private val popularProductService = mock<PopularProductService>()
+    private val productApplication = ProductApplication(productService, orderProductService, popularProductService)
 
 
     @Test
