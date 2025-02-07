@@ -14,12 +14,12 @@ class CouponController @Autowired constructor(
     val couponService: CouponService
 ) {
 
-    @Operation(summary = "쿠폰 발급", description = "쿠폰 템플릿을 기반으로 선착순으로 쿠폰을 발급한다.")
+    @Operation(summary = "쿠폰 발급", description = "쿠폰 템플릿을 기반으로 선착순으로 쿠폰 발급을 요청한다.")
     @PostMapping("/coupon-templates/{couponTemplateId}/issue")
     fun issue(@PathVariable couponTemplateId: Long, @RequestBody request: IssueRequest): ResponseEntity<IssueResponse> {
-        val response = couponService.issue(templateId = couponTemplateId, userId = request.userId).toIssueResponse()
+        couponService.requestCouponIssue(couponTemplateId, request.userId)
 
-        return ResponseEntity.ok(response)
+        return ResponseEntity.ok().build()
     }
 
     @Operation(summary = "사용자 쿠폰 목록 조회", description = "사용자에게 발급된 쿠폰 목록을 조회한다.")

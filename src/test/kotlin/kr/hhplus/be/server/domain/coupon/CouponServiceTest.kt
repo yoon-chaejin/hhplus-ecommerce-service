@@ -18,7 +18,9 @@ class CouponServiceTest {
 
     private val couponTemplateRepository: CouponTemplateRepository = mock<CouponTemplateRepository>()
     private val issuedCouponRepository: IssuedCouponRepository = mock<IssuedCouponRepository>()
-    private val sut: CouponService = CouponService(couponTemplateRepository, issuedCouponRepository)
+    private val issueRequestRepository: IssueRequestRepository = mock<IssueRequestRepository>()
+
+    private val sut: CouponService = CouponService(couponTemplateRepository, issuedCouponRepository, issueRequestRepository)
 
     @Test
     fun `쿠폰 목록이 없는 사용자인 경우, 쿠폰 목록 조회 시, 빈 리스트를 반환한다`() {
@@ -52,8 +54,6 @@ class CouponServiceTest {
             ownedBy = userId,
             usedAt = now,
             expiresAt = now.plusDays(1),
-            createdAt = now.minusDays(1),
-            updatedAt = now.minusDays(1),
         )
         val coupons = listOf(coupon)
 
@@ -95,8 +95,6 @@ class CouponServiceTest {
             maxIssueCount = 10,
             discountRate = 10,
             issuableUntil = now.plusDays(1),
-            createdAt = now,
-            updatedAt = now
         )
         val issuedCoupon = couponTemplate.issueCoupon(userId, now)
 
@@ -107,8 +105,6 @@ class CouponServiceTest {
                 maxIssueCount = 10,
                 discountRate = 10,
                 issuableUntil = now.plusDays(1),
-                createdAt = now,
-                updatedAt = now
             )
         )
 

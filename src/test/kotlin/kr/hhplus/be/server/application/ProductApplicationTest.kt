@@ -1,6 +1,7 @@
 package kr.hhplus.be.server.application
 
 import kr.hhplus.be.server.domain.order.OrderProductService
+import kr.hhplus.be.server.domain.product.PopularProductService
 import kr.hhplus.be.server.domain.product.ProductService
 import kr.hhplus.be.server.domain.product.model.Product
 import kr.hhplus.be.server.domain.product.model.ProductStatus
@@ -15,7 +16,9 @@ import kotlin.test.assertEquals
 class ProductApplicationTest {
     private val productService = mock<ProductService>()
     private val orderProductService = mock<OrderProductService>()
-    private val productApplication = ProductApplication(productService, orderProductService)
+    private val popularProductService = mock<PopularProductService>()
+    private val productApplication = ProductApplication(productService, orderProductService, popularProductService)
+
 
     @Test
     fun `상태에 대한 검색 조건이 없는 경우, 상품 조회 시, 두 상태 모두 조회된다`() {

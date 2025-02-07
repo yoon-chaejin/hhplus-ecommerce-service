@@ -1,14 +1,10 @@
 package kr.hhplus.be.server.point.model
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Version
+import jakarta.persistence.*
 import kr.hhplus.be.server.common.exception.CustomException
 import kr.hhplus.be.server.common.exception.CustomExceptionType
 import org.hibernate.annotations.ColumnDefault
-import java.time.LocalDateTime
+import kr.hhplus.be.server.common.model.BaseEntity
 
 @Entity
 class Point(
@@ -16,12 +12,10 @@ class Point(
     val id: Long = 0L,
     val userId: Long,
     var balance: Int = 0,
-    val createdAt: LocalDateTime = LocalDateTime.now(),
-    val updatedAt: LocalDateTime = LocalDateTime.now(),
     @Version
     @ColumnDefault("0")
     val version: Long = 0,
-) {
+) : BaseEntity() {
 
     companion object {
         val MIN_BALANCE = 0

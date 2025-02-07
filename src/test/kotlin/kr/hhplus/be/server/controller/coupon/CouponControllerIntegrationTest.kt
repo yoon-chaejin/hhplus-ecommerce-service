@@ -29,7 +29,7 @@ class CouponControllerIntegrationTest(
     }
 
     @Test
-    fun `쿠폰 발급 200`() {
+    fun `쿠폰 발급 요청 200`() {
         val couponTemplateId = 1
         val uri = "/coupon-templates/${couponTemplateId}/issue"
         val userId = 1L
@@ -43,47 +43,5 @@ class CouponControllerIntegrationTest(
                 .content(body)
         )
             .andExpect(MockMvcResultMatchers.status().isOk)
-    }
-
-    @Test
-    fun `쿠폰 발급 400 3001`() {
-        val couponTemplateId = 0
-        val uri = "/coupon-templates/${couponTemplateId}/issue"
-        val userId = 1L
-        val request = IssueRequest(userId = userId)
-        val body = objectMapper.writeValueAsString(request)
-
-        mockMvc.perform(
-            MockMvcRequestBuilders
-                .post(uri)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(body)
-        )
-            .andExpect(MockMvcResultMatchers.status().isBadRequest)
-            .andExpect(
-                MockMvcResultMatchers
-                    .jsonPath("$.error")
-                    .value(CustomExceptionType.COUPON_TEMPLATE_NOT_FOUND.resultCode)
-            )
-    }
-
-    @Test
-    fun `쿠폰 발급 400 3002`() {
-        val couponTemplateId = 2
-        val uri = "/coupon-templates/$couponTemplateId/issue"
-        val userId = 1L
-        val request = IssueRequest(userId = userId)
-        val body = objectMapper.writeValueAsString(request)
-
-        mockMvc.perform(
-            MockMvcRequestBuilders
-                .post(uri)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(body))
-            .andExpect(
-                MockMvcResultMatchers
-                    .jsonPath("$.error")
-                    .value(CustomExceptionType.COUPON_ISSUE_FAILED.resultCode)
-            )
     }
 }

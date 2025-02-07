@@ -1,8 +1,8 @@
 package kr.hhplus.be.server.domain.order.model
 
 import jakarta.persistence.*
+import kr.hhplus.be.server.common.model.BaseEntity
 import kr.hhplus.be.server.domain.coupon.model.IssuedCoupon
-import java.time.LocalDateTime
 
 @Entity
 @Table(name = "`order`")
@@ -15,9 +15,7 @@ class Order(
     @JoinColumn(name = "order_id")
     val orderProducts: List<OrderProduct>,
     val orderedBy: Long,
-    val createdAt: LocalDateTime = LocalDateTime.now(),
-    val updatedAt: LocalDateTime = LocalDateTime.now(),
-) {
+) : BaseEntity() {
     var totalPrice: Int = 0
     var paymentPrice: Int = 0
 

@@ -1,7 +1,9 @@
 package kr.hhplus.be.server.application
 
 import kr.hhplus.be.server.application.model.PopularProductInfo
+import kr.hhplus.be.server.common.utils.LocalDateTimeTruncator
 import kr.hhplus.be.server.domain.order.OrderProductService
+import kr.hhplus.be.server.domain.product.PopularProductService
 import kr.hhplus.be.server.domain.product.ProductService
 import kr.hhplus.be.server.domain.product.model.Product
 import kr.hhplus.be.server.domain.product.model.ProductStatus
@@ -13,8 +15,10 @@ import java.time.LocalDateTime
 @Service
 class ProductApplication @Autowired constructor (
     val productService: ProductService,
-    val orderProductService: OrderProductService
+    val orderProductService: OrderProductService,
+    val popularProductService: PopularProductService,
 ) {
+
     fun getProducts(page: Pageable, status: ProductStatus?) : List<Product> {
         return if (status == null) {
             productService.getProducts(page)
@@ -23,8 +27,8 @@ class ProductApplication @Autowired constructor (
         }
     }
 
-    fun getPopularProducts() : List<PopularProductInfo> {
-        val end = LocalDateTime.now()
+    fun getPopularProductsFromDatabase() : List<PopularProductInfo> {
+        val end = LocalDateTimeTruncator.truncateToNearestFiveMinutes(LocalDateTime.now())
         val start = end.minusDays(3)
 
         return orderProductService.getPopularOrderProducts(start, end).map {
@@ -34,4 +38,15 @@ class ProductApplication @Autowired constructor (
             )
         }
     }
+
+    fun getPopularProducts(): List<PopularProductInfo> {
+        return runCatching {
+            popularProductService.getPopularProductsFromCache()
+        }.getOrElse {
+            getPopularProductsFromDatabase()
+        }.also {
+            popularProductService.setPopularProductsToCache(it)
+        }
+    }
+
 }

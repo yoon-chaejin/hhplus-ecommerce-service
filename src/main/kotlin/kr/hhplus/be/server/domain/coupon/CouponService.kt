@@ -11,7 +11,8 @@ import java.time.LocalDateTime
 @Service
 class CouponService @Autowired constructor (
     private val couponTemplateRepository: CouponTemplateRepository,
-    private val issuedCouponRepository: IssuedCouponRepository
+    private val issuedCouponRepository: IssuedCouponRepository,
+    private val issueRequestRepository: IssueRequestRepository
 ) {
 
     fun getIssuedCouponsByUserId(userId: Long): List<IssuedCoupon> {
@@ -35,5 +36,12 @@ class CouponService @Autowired constructor (
 
         val at = LocalDateTime.now()
         return coupon.use(userId, at)
+    }
+
+    fun requestCouponIssue(templateId: Long, userId: Long) {
+        val key = "coupon_issue_request_${templateId}"
+        val timestamp = System.currentTimeMillis()
+
+        issueRequestRepository.saveRequest(key, userId.toString(), timestamp.toDouble())
     }
 }
