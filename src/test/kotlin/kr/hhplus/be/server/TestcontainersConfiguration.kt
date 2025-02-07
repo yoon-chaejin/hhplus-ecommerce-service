@@ -35,8 +35,8 @@ class TestcontainersConfiguration {
             System.setProperty("spring.datasource.password", mySqlContainer.password)
 
             // Redis 관련 시스템 프로퍼티 설정
-            System.setProperty("spring.redis.host", redisContainer.host)
-            System.setProperty("spring.redis.port", redisContainer.firstMappedPort.toString())
+            System.setProperty("spring.data.redis.host", redisContainer.host)
+            System.setProperty("spring.data.redis.port", redisContainer.firstMappedPort.toString())
 
         }
     }
