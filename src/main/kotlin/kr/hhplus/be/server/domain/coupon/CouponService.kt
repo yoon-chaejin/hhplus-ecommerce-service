@@ -42,6 +42,6 @@ class CouponService @Autowired constructor (
         val key = "coupon_issue_request_${templateId}"
         val timestamp = System.currentTimeMillis()
 
-        issueRequestRepository.save(key, userId.toString(), timestamp.toDouble())
+        issueRequestRepository.saveRequest(key, userId.toString(), timestamp.toDouble())
     }
 }
