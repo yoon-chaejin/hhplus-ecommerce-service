@@ -4,4 +4,5 @@ import kr.hhplus.be.server.domain.coupon.model.CouponTemplate
 
 interface CouponTemplateRepository {
     fun findCouponTemplateByIdWithLock(id: Long): CouponTemplate?
+    fun findCouponTemplatesIssuable(): List<CouponTemplate>
 }
