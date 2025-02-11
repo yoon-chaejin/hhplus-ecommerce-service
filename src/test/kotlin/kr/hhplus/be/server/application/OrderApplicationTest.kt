@@ -47,16 +47,11 @@ class OrderApplicationTest {
         )
         val coupon = IssuedCoupon(
             id = 1L,
-            template = CouponTemplate(
-                id = 1L,
-                discountRate = 10,
-                issueCount = 1,
-                maxIssueCount = 10,
-                issuableUntil = now.minusDays(10),
-            ),
+            couponTemplateRefKey = 1L,
+            discountRate = 10,
             ownedBy = 1L,
             usedAt = now,
-            expiresAt = now.plusDays(365),
+            expiresAt = now.plusDays(365)
         )
         given(productService.decreaseProductQuantity(anyLong(), anyInt())).willReturn(product)
         given(couponService.use(anyLong(), anyLong())).willReturn(coupon)

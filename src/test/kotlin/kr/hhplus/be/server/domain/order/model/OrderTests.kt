@@ -72,17 +72,12 @@ class OrderTests {
             val userId = 1L
             val ownerId = 2L
             val now = LocalDateTime.of(2025, 1, 8, 1, 0, 0)
-            val template = CouponTemplate(
-                id = 1L,
-                discountRate = 10,
-                issueCount = 1,
-                maxIssueCount = 10,
-                issuableUntil = now.plusDays(1),
-            )
+
             val issuedCoupon = IssuedCoupon(
                 id = 1L,
                 ownedBy = ownerId,
-                template = template,
+                discountRate = 10,
+                couponTemplateRefKey = 1L,
                 usedAt = null,
                 expiresAt = now.minusDays(1),
             )
@@ -106,16 +101,11 @@ class OrderTests {
             val userId = 1L
             val discountRate = 10
             val now = LocalDateTime.of(2025, 1, 8, 1, 0, 0)
-            val template = CouponTemplate(
-                id = 1L,
-                discountRate = discountRate,
-                issueCount = 1,
-                maxIssueCount = 10,
-                issuableUntil = now.plusDays(1),
-            )
+            
             val coupon = IssuedCoupon(
                 id = 1L,
-                template = template,
+                discountRate = discountRate,
+                couponTemplateRefKey = 1L,
                 ownedBy = userId,
                 usedAt = null,
                 expiresAt = now.plusDays(1),

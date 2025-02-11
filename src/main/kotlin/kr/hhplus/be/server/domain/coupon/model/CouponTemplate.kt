@@ -25,7 +25,8 @@ class CouponTemplate(
         issueCount += 1
         return IssuedCoupon(
             id = 0,
-            template = this,
+            discountRate = this.discountRate,
+            couponTemplateRefKey = this.id,
             ownedBy = userId,
             expiresAt = at.plusDays(365),
             usedAt = null,
