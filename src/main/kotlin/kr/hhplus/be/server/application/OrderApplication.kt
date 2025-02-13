@@ -11,6 +11,7 @@ import kr.hhplus.be.server.domain.order.model.OrderProduct
 import kr.hhplus.be.server.domain.point.PointService
 import kr.hhplus.be.server.domain.product.ProductService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -20,7 +21,8 @@ class OrderApplication @Autowired constructor(
     val productService: ProductService,
     val couponService: CouponService,
     val pointService: PointService,
-    ) {
+    val applicationEventPublisher: ApplicationEventPublisher,
+) {
 
     @Transactional
     fun order(userId: Long, request: OrderRequest): Order {
@@ -49,7 +51,7 @@ class OrderApplication @Autowired constructor(
 
         pointService.use(userId, order.paymentPrice)
 
-        DataPlatform.send(order)
+        applicationEventPublisher.publishEvent(order)
 
         return order
     }

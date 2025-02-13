@@ -15,6 +15,7 @@ import kr.hhplus.be.server.point.model.Point
 import org.mockito.ArgumentMatchers.*
 import org.mockito.kotlin.*
 import org.mockito.kotlin.any
+import org.springframework.context.ApplicationEventPublisher
 import java.time.LocalDateTime
 import kotlin.test.Test
 
@@ -23,8 +24,9 @@ class OrderApplicationTest {
     private val productService = mock<ProductService>()
     private val couponService = mock<CouponService>()
     private val pointService = mock<PointService>()
+    private val applicationEventPublisher = mock<ApplicationEventPublisher>()
 
-    private val sut = OrderApplication(orderService, productService, couponService, pointService)
+    private val sut = OrderApplication(orderService, productService, couponService, pointService, applicationEventPublisher)
 
     @Test
     fun `쿠폰이 있을 경우, 주문 시, 쿠폰 사용이 호출된다`() {
