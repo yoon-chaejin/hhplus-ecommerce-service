@@ -12,4 +12,8 @@ class CouponTemplateRepositoryImpl @Autowired constructor (
     override fun findCouponTemplateByIdWithLock(id: Long): CouponTemplate? {
         return couponTemplateJpaRepository.findForUpdateById(id)
     }
+
+    override fun findCouponTemplatesIssuable(): List<CouponTemplate> {
+        return couponTemplateJpaRepository.findCouponTemplatesIssuable()
+    }
 }

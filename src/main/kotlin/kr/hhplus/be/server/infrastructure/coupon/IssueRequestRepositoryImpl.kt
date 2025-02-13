@@ -15,6 +15,9 @@ class IssueRequestRepositoryImpl (
     }
 
     override fun findRequests(key: String, count: Long): List<String> {
-        return operations.reverseRangeByScore(key, 0.0, Double.MAX_VALUE, 0, count)!!.toList()
+        return operations.popMin(key, count)
+            ?.sortedBy { it.score }
+            ?.mapNotNull { it.value }
+            ?: emptyList()
     }
 }

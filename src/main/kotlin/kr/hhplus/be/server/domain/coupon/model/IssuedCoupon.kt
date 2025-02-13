@@ -11,8 +11,8 @@ import java.time.LocalDateTime
 class IssuedCoupon(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
-    @ManyToOne(fetch = FetchType.LAZY)
-    val template: CouponTemplate,
+    val discountRate: Int,
+    val couponTemplateRefKey: Long,
     val ownedBy: Long,
     val expiresAt: LocalDateTime,
     var usedAt: LocalDateTime?,

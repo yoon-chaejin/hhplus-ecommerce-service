@@ -1,4 +1,4 @@
-package kr.hhplus.be.server
+package kr.hhplus.be.server.scheduler
 
 import kr.hhplus.be.server.application.ProductApplication
 import kr.hhplus.be.server.domain.product.PopularProductService

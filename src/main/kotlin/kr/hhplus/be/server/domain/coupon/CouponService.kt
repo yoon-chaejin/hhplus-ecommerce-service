@@ -2,6 +2,7 @@ package kr.hhplus.be.server.domain.coupon
 
 import kr.hhplus.be.server.common.exception.CustomException
 import kr.hhplus.be.server.common.exception.CustomExceptionType
+import kr.hhplus.be.server.domain.coupon.model.CouponTemplate
 import kr.hhplus.be.server.domain.coupon.model.IssuedCoupon
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -14,6 +15,9 @@ class CouponService @Autowired constructor (
     private val issuedCouponRepository: IssuedCouponRepository,
     private val issueRequestRepository: IssueRequestRepository
 ) {
+    fun getCouponTemplatesIssuable(): List<CouponTemplate> {
+        return couponTemplateRepository.findCouponTemplatesIssuable()
+    }
 
     fun getIssuedCouponsByUserId(userId: Long): List<IssuedCoupon> {
         return issuedCouponRepository.findIssuedCouponsByUserId(userId)
@@ -43,5 +47,9 @@ class CouponService @Autowired constructor (
         val timestamp = System.currentTimeMillis()
 
         issueRequestRepository.saveRequest(key, userId.toString(), timestamp.toDouble())
+    }
+
+    fun getCouponIssueRequests(templateId: Long, count: Int): List<String> {
+        return issueRequestRepository.findRequests("coupon_issue_request_${templateId}", count.toLong())
     }
 }

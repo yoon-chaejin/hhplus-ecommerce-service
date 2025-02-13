@@ -13,7 +13,7 @@ data class IssueResponse(
 fun IssuedCoupon.toIssueResponse(): IssueResponse {
     return IssueResponse(
         id = this.id,
-        discountRate = this.template.discountRate,
+        discountRate = this.discountRate,
         expiresAt = this.expiresAt,
         createdAt = this.createdAt,
     )

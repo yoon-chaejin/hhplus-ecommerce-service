@@ -72,18 +72,21 @@ class CouponServiceIntegrationTests @Autowired constructor(
         val numOfIterations = 2
 
         val userId = 1L
-        val template = CouponTemplate(
-            id =  0L,
-            discountRate = 10,
-            issueCount = 0,
-            maxIssueCount = 10,
-            issuableUntil = LocalDateTime.now().plusDays(1)
+
+        val template = couponTemplateJpaRepository.save(
+            CouponTemplate(
+                id =  0L,
+                discountRate = 10,
+                issueCount = 0,
+                maxIssueCount = 10,
+                issuableUntil = LocalDateTime.now().plusDays(1)
+            )
         )
-        couponTemplateJpaRepository.save(template)
 
         val coupon = IssuedCoupon(
             id = 0L,
-            template = template,
+            discountRate = template.discountRate,
+            couponTemplateRefKey = template.id,
             usedAt = null,
             ownedBy = userId,
             expiresAt = LocalDateTime.now().plusDays(1),

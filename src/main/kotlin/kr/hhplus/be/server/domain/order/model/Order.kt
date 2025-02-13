@@ -29,7 +29,7 @@ class Order(
 
         totalPrice = orderProducts.sumOf { it.unitPrice * it.quantity }
         paymentPrice = if (coupon != null) {
-            totalPrice * coupon.template.discountRate / 100
+            totalPrice * coupon.discountRate / 100
         } else {
             totalPrice
         }

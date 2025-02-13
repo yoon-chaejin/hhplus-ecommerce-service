@@ -10,13 +10,14 @@ class IssueRequestRepositoryTest @Autowired constructor(
     private val sut: IssueRequestRepository
 ){
     @Test
-    fun `발급 요청 저장 후 조회 시, 조회된다`() {
+    fun `발급 요청 저장 후 조회 시, 한 번만 조회된다`() {
         sut.saveRequest("coupon-issue-request-1", "1", System.currentTimeMillis().toDouble())
         sut.saveRequest("coupon-issue-request-1", "2", System.currentTimeMillis().toDouble())
 
-        val result = sut.findRequests("coupon-issue-request-1", 2)
+        val resultOnce = sut.findRequests("coupon-issue-request-1", 2)
+        val resultTwice = sut.findRequests("coupon-issue-request-1", 2)
 
-        assertEquals(2, result.size)
-
+        assertEquals(2, resultOnce.size)
+        assertEquals(0, resultTwice.size)
     }
 }

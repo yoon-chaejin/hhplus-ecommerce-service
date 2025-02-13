@@ -16,7 +16,7 @@ data class CouponResponse(
 fun IssuedCoupon.toCouponResponse(): CouponResponse {
     return CouponResponse(
         id = this.id,
-        discountRate = this.template.discountRate,
+        discountRate = this.discountRate,
         status = this.getStatus(),
         usedAt = this.usedAt,
         expiresAt = this.expiresAt,
