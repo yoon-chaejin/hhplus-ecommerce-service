@@ -59,7 +59,10 @@ dependencies {
     implementation ("org.springframework.kafka:spring-kafka")
 
     // DB
-	runtimeOnly("com.mysql:mysql-connector-j")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+//    implementation("com.vladmihalcea:hibernate-types-52:1.0.0")
+    runtimeOnly("com.mysql:mysql-connector-j")
 
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")

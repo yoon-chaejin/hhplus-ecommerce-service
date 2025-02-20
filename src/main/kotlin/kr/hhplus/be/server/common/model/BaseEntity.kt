@@ -13,9 +13,10 @@ import java.time.LocalDateTime
 abstract class BaseEntity {
     @set:CreatedDate
     @set:Column(updatable = false)
-    lateinit var createdAt: LocalDateTime
+    var createdAt: LocalDateTime = LocalDateTime.MIN
 
     @set:LastModifiedDate
     @set:Column
-    lateinit var updatedAt: LocalDateTime
+    var updatedAt: LocalDateTime = LocalDateTime.MIN
+
 }
