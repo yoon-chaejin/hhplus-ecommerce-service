@@ -1,10 +1,12 @@
 package kr.hhplus.be.server
 
 import jakarta.annotation.PreDestroy
+import org.apache.kafka.streams.Topology.AutoOffsetReset
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.testcontainers.containers.GenericContainer
 import org.testcontainers.containers.MySQLContainer
+import org.testcontainers.kafka.ConfluentKafkaContainer
 import org.testcontainers.utility.DockerImageName
 
 @Configuration
@@ -14,6 +16,7 @@ class TestcontainersConfiguration {
     fun preDestroy() {
         if (mySqlContainer.isRunning) mySqlContainer.stop()
         if (redisContainer.isRunning) redisContainer.stop()
+        if (kafkaContainer.isRunning) kafkaContainer.stop()
     }
 
     companion object {
@@ -28,6 +31,11 @@ class TestcontainersConfiguration {
             .withExposedPorts(6379)
             .apply { start() }
 
+        // Kafka 컨테이너 설정
+        val kafkaContainer = ConfluentKafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.8.0"))
+            .apply { start() }
+
+
         init {
             // MySQL 관련 시스템 프로퍼티 설정
             System.setProperty("spring.datasource.url", mySqlContainer.getJdbcUrl() + "?characterEncoding=UTF-8&serverTimezone=UTC")
@@ -38,6 +46,9 @@ class TestcontainersConfiguration {
             System.setProperty("spring.data.redis.host", redisContainer.host)
             System.setProperty("spring.data.redis.port", redisContainer.firstMappedPort.toString())
 
+            // Kafka 관련 시스템 프로퍼티 설정
+            System.setProperty("spring.kafka.bootstrap-servers", kafkaContainer.bootstrapServers)
+            System.setProperty("spring.kafka.consumer.auto-offset-reset", "earliest")
         }
     }
 }
