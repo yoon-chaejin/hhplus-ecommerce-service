@@ -13,7 +13,7 @@ services:
       - ./data/mysql/:/var/lib/mysql
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.8.0
+    image: confluentinc/cp-zookeeper:latest
     container_name: zookeeper
     restart: always
     environment:
@@ -23,21 +23,22 @@ services:
       - "2181:2181"
 
   kafka:
-    image: confluentinc/cp-kafka:7.8.0
+    image: confluentinc/cp-kafka:latest
     container_name: kafka
     restart: always
     depends_on:
       - zookeeper
     ports:
-      - "9092:9092"
       - "29092:29092"
     environment:
       KAFKA_BROKER_ID: 1 # 카프카 브로커 아이디
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092 # 외부에서 접속하기 위한 리스너 설정
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT # 보안을 위한 프로토콜 매핑
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT # 도커 내부에서 사용할 리스너 이름을 지정
+      KAFKA_LISTENERS: INTERNAL://:9092,EXTERNAL://:29092
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT # 보안을 위한 프로토콜 매핑
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL # 도커 내부에서 사용할 리스너 이름을 지정
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest

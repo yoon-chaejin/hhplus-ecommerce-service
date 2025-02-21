@@ -8,7 +8,14 @@ class EventOutbox (
     private val id: Long = 0L,
     private val eventName: String,
     private val eventKey: String? = null,
-    private val status: EventOutboxStatus = EventOutboxStatus.INIT,
+    @Enumerated(EnumType.STRING)
+    private var status: EventOutboxStatus = EventOutboxStatus.INIT,
     @Column(columnDefinition = "TEXT")
     private val message: String,
-)
+    private val aggregateId: Long,
+) {
+    fun published(): EventOutbox {
+        this.status = EventOutboxStatus.PUBLISHED
+        return this
+    }
+}

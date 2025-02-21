@@ -10,10 +10,11 @@ class EventOutboxFactory {
         private val objectMapper = ObjectMapper()
             .registerModule(JavaTimeModule())  // LocalDateTime 지원 추가
 
-        fun create(eventName: String, data: Any): EventOutbox {
+        fun create(eventName: String, data: Any, aggregateId: Long): EventOutbox {
             return EventOutbox(
                 eventName = eventName,
                 message = objectMapper.writeValueAsString(data),
+                aggregateId = aggregateId
             )
         }
     }

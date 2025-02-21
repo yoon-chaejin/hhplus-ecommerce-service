@@ -1,6 +1,7 @@
 package kr.hhplus.be.server.application
 
 import kr.hhplus.be.server.domain.order.model.Order
+import kr.hhplus.be.server.infrastructure.eventoutbox.EventOutbox
 import kr.hhplus.be.server.infrastructure.eventoutbox.EventOutboxFactory
 import kr.hhplus.be.server.infrastructure.eventoutbox.EventOutboxJpaRepository
 import org.springframework.stereotype.Repository
@@ -11,7 +12,15 @@ class OrderCompletedEventOutboxRepository (
 ) {
     fun save(order: Order) {
         repository.save(
-            EventOutboxFactory.create(eventName="order-completed", data = order)
+            EventOutboxFactory.create(eventName="order-completed", data = order, aggregateId = order.id)
         )
+    }
+
+    fun save(event: EventOutbox) {
+        repository.save(event)
+    }
+
+    fun findEventOutboxByData(data: String): EventOutbox? {
+        return repository.findByMessage(data)
     }
 }

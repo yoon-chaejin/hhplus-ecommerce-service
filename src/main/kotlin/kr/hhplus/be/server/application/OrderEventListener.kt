@@ -10,6 +10,7 @@ import org.springframework.transaction.event.TransactionalEventListener
 @Component
 class OrderEventListener @Autowired constructor (
     private val eventOutboxRepository: OrderCompletedEventOutboxRepository,
+    private val eventPublisher: OrderCompletedEventKafkaPublisher,
 ) {
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     fun saveEventToOutbox(order: Order) {
@@ -18,7 +19,7 @@ class OrderEventListener @Autowired constructor (
 
     @Async
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    fun sendDataPlatform(order: Order) {
-        DataPlatform.send(order)
+    fun publishEvent(order: Order) {
+        eventPublisher.publish(order)
     }
 }
