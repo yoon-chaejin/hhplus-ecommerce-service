@@ -1,6 +1,7 @@
 package kr.hhplus.be.server.infrastructure.eventoutbox
 
 import jakarta.persistence.*
+import kr.hhplus.be.server.common.model.BaseEntity
 
 @Entity
 class EventOutbox (
@@ -11,9 +12,9 @@ class EventOutbox (
     @Enumerated(EnumType.STRING)
     private var status: EventOutboxStatus = EventOutboxStatus.INIT,
     @Column(columnDefinition = "TEXT")
-    private val message: String,
+    val message: String,
     private val aggregateId: Long,
-) {
+) : BaseEntity() {
     fun published(): EventOutbox {
         this.status = EventOutboxStatus.PUBLISHED
         return this

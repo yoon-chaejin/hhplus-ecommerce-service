@@ -16,4 +16,8 @@ class OrderCompletedEventKafkaPublisher @Autowired constructor (
     fun publish(order: Order) {
         kafkaTemplate.send("order-completed", objectMapper.writeValueAsString(order))
     }
+
+    fun publish(string: String) {
+        kafkaTemplate.send("order-completed", string)
+    }
 }
