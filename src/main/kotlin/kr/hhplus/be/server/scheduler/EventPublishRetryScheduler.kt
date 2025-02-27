@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 
 @Component
 @EnableScheduling
-@Profile("local", "scheduler")
+@Profile("local", "schd")
 class EventPublishRetryScheduler (
     private val eventOutboxRepository: OrderCompletedEventOutboxRepository,
     private val kafkaPublisher: OrderCompletedEventKafkaPublisher

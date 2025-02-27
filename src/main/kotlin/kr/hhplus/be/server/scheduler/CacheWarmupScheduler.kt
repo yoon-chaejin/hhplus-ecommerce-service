@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 
 @Component
 @EnableScheduling
-@Profile("local", "scheduler")
+@Profile("local", "schd")
 class CacheWarmupScheduler @Autowired constructor(
     private val productApplication: ProductApplication,
     private val popularProductService: PopularProductService,

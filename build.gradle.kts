@@ -5,6 +5,7 @@ plugins {
 	kotlin("plugin.jpa") version "2.1.0"
 	id("org.springframework.boot") version "3.4.1"
 	id("io.spring.dependency-management") version "1.1.7"
+    id("com.google.cloud.tools.jib") version "3.4.0"
 }
 
 fun getGitHash(): String {
@@ -76,6 +77,21 @@ dependencies {
     testImplementation("org.testcontainers:kafka")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+jib {
+    from {
+        image = "eclipse-temurin:17-jre"
+    }
+    to {
+        image = "hhplus-ecommerce-service:latest"
+        tags = setOf("latest", "v1.0")
+    }
+    container {
+        mainClass = "kr.hhplus.be.server.ServerApplicationKt"
+        jvmFlags = listOf("-Xms512m", "-Xmx1024m")
+        ports = listOf("8080")
+    }
 }
 
 tasks.withType<Test> {
