@@ -89,7 +89,7 @@ jib {
     }
     container {
         mainClass = "kr.hhplus.be.server.ServerApplicationKt"
-        jvmFlags = listOf("-Xms512m", "-Xmx1024m")
+        jvmFlags = listOf("-Xms1024m", "-Xmx2048m")
         ports = listOf("8080")
     }
 }
