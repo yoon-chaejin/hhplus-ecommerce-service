@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 
 @Component
 @EnableScheduling
-@Profile("local", "scheduler")
+@Profile("local", "schd")
 class IssueCouponScheduler(
     private val couponApplication: CouponApplication,
 ) {
